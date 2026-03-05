@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@layer components {
+  input {
+    @apply w-full outline-none text-[11.5px] font-medium tracking-[0.04em] text-[#7dd3fc] 
+    bg-[rgba(56,189,248,0.08)] border border-[rgba(56,189,248,0.18)] rounded-md px-3 py-2
+              transition-all duration-200
+              placeholder:text-[#7dd3fc]/40
+              hover:bg-[rgba(56,189,248,0.16)] hover:border-[rgba(56,189,248,0.4)]
+              focus:bg-[rgba(56,189,248,0.2)] focus:border-[#7dd3fc] focus:ring-1 focus:ring-[#7dd3fc]/30;
+  }
+
+  label {
+    @apply text-[#7dd3fc] font-thin text-sm;
+  }
+
+  input,
+  button,
+  select,
+  .custom-button {
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    transition:
+      background 0.2s,
+      border-color 0.2s;
+    @apply font-semibold text-[#7dd3fc] bg-[#38bdf814] border border-[#38bdf814] rounded-md
+    px-1.25 py-3 cursor-default text-[11.5px];
+  }
+
+  button:hover {
+    background: rgba(56, 189, 248, 0.16);
+    border-color: rgba(56, 189, 248, 0.4);
+  }
+}
