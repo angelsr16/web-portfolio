@@ -35,7 +35,7 @@ export const usePathfinding = ({
     row: number,
     col: number,
     newRow: number,
-    newCol: number,
+    newCol: number
   ): boolean => {
     const dr = newRow - row;
     const dc = newCol - col;
@@ -47,37 +47,38 @@ export const usePathfinding = ({
     return true;
   };
 
+  // Manhattan Distance
+  // const heuristic = (row: number, col: number, target: number): number => {
+  //   const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
+  //     gridSize,
+  //     target,
+  //   );
+  //   return Math.abs(targetCol - col) + Math.abs(targetRow - row);
+  // };
+  // Euclidean Distance
   const heuristic = (row: number, col: number, target: number): number => {
     const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
       gridSize,
-      target,
+      target
     );
-    return Math.abs(targetCol - col) + Math.abs(targetRow - row);
+    return Math.sqrt((targetCol - col) ** 2 + (targetRow - row) ** 2);
   };
-
-  //   const heuristic = (row: number, col: number, target: number): number => {
-  //     const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
-  //       gridSize,
-  //       target,
-  //     );
-  //     return Math.sqrt((targetCol - col) ** 2 + (targetRow - row) ** 2);
-  //   };
 
   const searchPath = async (
     origin: number,
-    target: number,
+    target: number
   ): Promise<Cell | null> => {
     const { row: startRow, col: startCol } = getRowAndColFromIndex(
       gridSize,
-      origin,
+      origin
     );
     const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
       gridSize,
-      target,
+      target
     );
 
     const closedList: boolean[][] = Array.from({ length: gridSize }, () =>
-      new Array(gridSize).fill(false),
+      new Array(gridSize).fill(false)
     );
     // const cellDetails: Cell[][] = Array.from({ length: gridSize }, () =>
     //   Array.from({ length: gridSize }, () => new Cell()),
@@ -85,8 +86,8 @@ export const usePathfinding = ({
     const cellDetails: Cell[][] = Array.from({ length: gridSize }, (_, row) =>
       Array.from(
         { length: gridSize },
-        (_, col) => new Cell(getGridIndexFromRowAndCol(row, col, gridSize)),
-      ),
+        (_, col) => new Cell(getGridIndexFromRowAndCol(row, col, gridSize))
+      )
     );
 
     cellDetails[startRow][startCol].fCost = 0;
@@ -105,9 +106,9 @@ export const usePathfinding = ({
     while (openList.length() > 0) {
       const [f, h, row, col] = openList.pop();
       const index = getGridIndexFromRowAndCol(row, col, gridSize);
-      updateCell(index, FRONTIER_CELL);
+      updateCell(index, VISITED_CELL);
 
-      await sleep(50);
+      await sleep(25);
 
       closedList[row][col] = true;
 
@@ -132,8 +133,11 @@ export const usePathfinding = ({
           !closedList[newRow][newCol] &&
           isDiagonalMoveValid(row, col, newRow, newCol)
         ) {
-          updateCell(index, VISITED_CELL);
-          sleep(20);
+          updateCell(
+            getGridIndexFromRowAndCol(newRow, newCol, gridSize),
+            FRONTIER_CELL
+          );
+          sleep(5);
           if (newRow === targetRow && newCol === targetCol) {
             cellDetails[newRow][newCol].parent = cellDetails[row][col];
             return cellDetails[row][col];
