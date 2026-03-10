@@ -1,5 +1,4 @@
 import { Card } from "../../../components/Card";
-import { Pill } from "../../../components/Pill";
 
 const skills = [
   "IA",
@@ -89,9 +88,9 @@ export default function AboutSection() {
 
           <div className="flex flex-wrap gap-2 mt-4">
             {skills.map((skill) => (
-              <Pill key={skill} className="skill-pill">
+              <span key={skill} className="pill">
                 {skill}
-              </Pill>
+              </span>
             ))}
           </div>
         </div>

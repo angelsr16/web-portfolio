@@ -36,8 +36,8 @@ body::before {
 @layer components {
   .custom-card {
     @apply relative overflow-hidden cursor-default
-    bg-white/[0.03] border border-white/[0.07]
-    rounded-[14px] px-6 py-[22px]
+    bg-white/3 border border-white/[0.07]
+    rounded-[14px] px-6 py-5.5
     transition-colors duration-200
     hover:border-sky-400/25 hover:bg-sky-400/5;
   }
@@ -83,6 +83,25 @@ body::before {
     background: rgba(56, 189, 248, 0.16);
     border-color: rgba(56, 189, 248, 0.4);
   }
+
+  .pill {
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: #7dd3fc;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.18);
+    border-radius: 8px;
+    padding: 5px 12px;
+    transition:
+      background 0.2s,
+      border-color 0.2s;
+    cursor: default;
+  }
+  .pill:hover {
+    background: rgba(56, 189, 248, 0.16);
+    border-color: rgba(56, 189, 248, 0.4);
+  }
 }
 
 @keyframes shine {
@@ -109,47 +128,3 @@ body::before {
   background-clip: text;
   animation: shine 10s linear infinite;
 }
-
-/* @import "tailwindcss";
-
-@layer base {
-  html,
-  body,
-  #root {
-    @apply min-h-full;
-  }
-
-  body {
-    @apply bg-[#080c10] relative text-slate-300 antialiased;
-  }
-
-  body::before {
-    content: "";
-    @apply fixed inset-0 pointer-events-none -z-10;
-    background-image:
-      linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-}
-
-@layer utilities {
-  .text-shine {
-    @apply bg-clip-text text-transparent animate-[shine_10s_linear_infinite];
-    background-image: linear-gradient(
-      90deg,
-      #0ea5e9,
-      #38bdf8,
-      #e0f7ff,
-      #38bdf8,
-      #0ea5e9
-    );
-    background-size: 200% auto;
-  }
-}
-
-@keyframes shine {
-  to {
-    background-position: -200% center;
-  }
-} */
