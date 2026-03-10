@@ -40,7 +40,7 @@ export const PuzzleCanvas = ({
             y + 10,
             tileSize - 20,
             tileSize - 20,
-            "#38bdf8",
+            "#38bdf810",
             20,
           );
 

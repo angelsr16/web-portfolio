@@ -20,7 +20,7 @@ export const EightPuzzleSolver = () => {
 
   return (
     <div>
-      <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-5 items-start">
+      <div className="w-full grid lg:grid-cols-2 grid-cols-1 gap-5 items-start">
         <div className="w-full max-w-100 aspect-square place-self-center flex flex-col gap-4">
           <div className="flex gap-5 w-full justify-between">
             <button
@@ -78,7 +78,7 @@ export const EightPuzzleSolver = () => {
 
       <Separator className="my-5" />
 
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:px-10">
         <div className="flex flex-col gap-2">
           <h1 className="text-xl font-bold">Descripción general</h1>
 
@@ -92,22 +92,22 @@ export const EightPuzzleSolver = () => {
 
           <h2 className="font-semibold">Desafíos técnicos</h2>
 
-          <ul>
+          <ul className="font-thin">
             <li className="list-disc ml-5">
-              Gestión del Espacio de Estados: El 8-puzzle tiene 9!/2 = 181,440
-              estados alcanzables. Una búsqueda ciega (BFS/DFS) resultaría
-              ineficiente en términos de memoria y tiempo.
+              <strong>Gestión del Espacio de Estados</strong>: El 8-puzzle tiene
+              9!/2 = 181,440 estados alcanzables. Una búsqueda ciega (BFS/DFS)
+              resultaría ineficiente en términos de memoria y tiempo.
             </li>
             <li className="list-disc ml-5">
-              Heurística admisible: El reto consistió en implementar una función
-              que guíe al algoritmo sin sobreestimar el costo, garantizando así
-              la solución más corta.
+              <strong>Heurística admisible</strong>: El reto consistió en
+              implementar una función que guíe al algoritmo sin sobreestimar el
+              costo, garantizando así la solución más corta.
             </li>
           </ul>
 
           <h2 className="font-semibold">Solución y Arquitectura</h2>
 
-          <ul>
+          <ul className="font-thin">
             <li className="list-disc ml-5">
               <strong>Algoritmo A*</strong>: Implementación del motor de
               búsqueda utilizando una cola de prioridad basada en el costo total
