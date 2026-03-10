@@ -50,7 +50,7 @@ const ProjectItem = ({
               onClick={onClick}
               className="badge cursor-pointer text-white!"
             >
-              Live Demo
+              Más detalles...
             </span>
 
             <a href="">

@@ -43,7 +43,7 @@ const ProjectsList = () => {
         { techImage: "typescript", techTitle: "Typescript" },
         { techImage: "react", techTitle: "React" },
       ],
-      tags: ["Leaflet Maps", "OpenStreetMap", "Overpass Turbo API", "IA"],
+      tags: ["Leaflet Maps", "Overpass Turbo API", "IA"],
       component: PathfindingMapWrapper,
     },
     {
