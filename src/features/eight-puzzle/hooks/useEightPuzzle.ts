@@ -38,6 +38,7 @@ export const useEightPuzzle = (n = 3) => {
   return {
     grid,
     setGrid,
+    setPath,
     path,
     currentIndex,
     setCurrentIndex,

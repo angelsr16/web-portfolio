@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import type { PuzzleState } from "../models/PuzzleState";
 
 export const StepControls = ({
   path,
   setGrid,
+  currentPathIndex,
+  setCurrentPathIndex,
 }: {
   path: PuzzleState[];
   setGrid: (grid: number[]) => void;
+  currentPathIndex: number;
+  setCurrentPathIndex: Dispatch<SetStateAction<number>>;
 }) => {
-  const [currentPathIndex, setCurrentPathIndex] = useState(0);
-
   const handlePrevio = () => {
     if (currentPathIndex - 1 >= 0) {
       setGrid(path[currentPathIndex - 1].board);

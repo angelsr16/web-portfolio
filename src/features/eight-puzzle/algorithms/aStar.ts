@@ -35,10 +35,10 @@ const aStar = (
 
     const moveKeys = Object.keys(Moves) as Move[];
     for (const move of moveKeys) {
-      if (move == "U" && blankPosition < 3) continue;
-      if (move == "D" && blankPosition > 5) continue;
-      if (move == "L" && blankPosition % 3 == 0) continue;
-      if (move == "R" && blankPosition % 3 == 2) continue;
+      if (move == "Arriba" && blankPosition < 3) continue;
+      if (move == "Abajo" && blankPosition > 5) continue;
+      if (move == "Izquierda" && blankPosition % 3 == 0) continue;
+      if (move == "Derecha" && blankPosition % 3 == 2) continue;
 
       const newBoard = moveTile(currentState.board, move, blankPosition);
 
