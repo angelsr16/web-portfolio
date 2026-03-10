@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaGithub } from "react-icons/fa";
 import { TbArrowsRandom, TbRosetteDiscountCheckFilled } from "react-icons/tb";
 import CodeSnippet from "../../components/CodeSnippet";
 import { Separator } from "../../components/Separator";
@@ -122,7 +123,7 @@ export const EightPuzzleSolver = () => {
           </ul>
         </div>
 
-        <div>
+        <div className="flex flex-col gap-2">
           <h1 className="font-bold text-xl">Heurística</h1>
           <p className="font-thin">Cálculo de distancia Manhattan</p>
           <CodeSnippet
@@ -141,6 +142,17 @@ export const EightPuzzleSolver = () => {
   return distance;
 };`}
           />
+
+          <div className="flex">
+            <a
+              className="flex gap-2 items-center underline text-lg"
+              href="https://github.com/angelsr16/web-portfolio/tree/main/src/features/eight-puzzle"
+              target="_blank"
+            >
+              Ver código fuente
+              <FaGithub />
+            </a>
+          </div>
         </div>
       </div>
     </div>

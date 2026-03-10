@@ -25,7 +25,7 @@ body::before {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 3px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-brand-background);
@@ -35,7 +35,7 @@ body::before {
     var(--color-brand-primary),
     var(--color-brand-secondary)
   );
-  border-radius: 3px;
+  border-radius: 25px;
 }
 
 @theme {

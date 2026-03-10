@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CiImport } from "react-icons/ci";
+import { FaGithub } from "react-icons/fa";
 import { GiPathDistance } from "react-icons/gi";
 import { MapContainer, TileLayer } from "react-leaflet";
+import CodeSnippet from "../../components/CodeSnippet";
+import { Separator } from "../../components/Separator";
 import { EdgeLayer } from "./components/EdgeLayer";
 import FitBounds from "./components/FitBounds";
 import NodeLayer from "./components/NodeLayer";
@@ -59,20 +62,6 @@ export const PathfindingMap = () => {
       workerRef.current?.postMessage({ graph, nodes, startId, endId });
     }
   };
-
-  // const handleSearchPath = () => {
-  //   if (graph && nodes) {
-  //     setSearching(true);
-  //     aStar(graph, nodes, startId, endId, (from: string, to: string) => {
-  //       setTraveledEdges((prev) => [...prev, [from, to]]);
-  //     }).then((path) => {
-  //       if (path !== null) {
-  //         setPath(path);
-  //         setSearching(false);
-  //       }
-  //     });
-  //   }
-  // };
 
   return (
     <div>
@@ -156,6 +145,125 @@ export const PathfindingMap = () => {
               </>
             )}
           </div>
+        </div>
+      </div>
+
+      <Separator className="my-5" />
+
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:px-10">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-xl font-bold">Descripción general</h1>
+
+          <p className="font-thin">
+            Este proyecto es un motor de búsqueda de rutas que trasciende los
+            entornos de prueba convencionales al utilizar cartografía real. El
+            sistema procesa datos vectoriales de OpenStreetMap para construir un
+            grafo vial complejo, permitiendo calcular y visualizar la ruta más
+            eficiente entre dos puntos geográficos reales.
+          </p>
+
+          <h2 className="font-semibold">Desafíos técnicos</h2>
+
+          <ul className="font-thin">
+            <li className="list-disc ml-5">
+              <strong>Parsing de Datos Masivos</strong>: Los archivos .osm
+              contienen una densidad enorme de información. El reto fue filtrar
+              y extraer únicamente los nodos y vías transitables para construir
+              una lista de adyacencia eficiente en memoria.
+            </li>
+            <li className="list-disc ml-5">
+              <strong>Precisión Geográfica</strong>: A diferencia de una rejilla
+              plana, los cálculos en un mapa real deben considerar la curvatura
+              terrestre para que las distancias y las heurísticas sean precisas.
+            </li>
+          </ul>
+
+          <h2 className="font-semibold">Solución y Arquitectura</h2>
+
+          <ul className="font-thin">
+            <li className="list-disc ml-5">
+              <strong>Algoritmo A* Geográfico:</strong>: mplementación del motor
+              de búsqueda optimizado para grafos de gran escala, utilizando una
+              cola de prioridad para gestionar la expansión de nodos.
+            </li>
+            <li className="list-disc ml-5">
+              <strong>Fórmula de Haversine</strong>: Integración de cálculos
+              trigonométricos para determinar la distancia de círculo máximo
+              entre coordenadas (latitud/longitud), utilizada tanto para el peso
+              de las aristas como para la heurística.
+            </li>
+
+            <li className="list-disc ml-5">
+              <strong>Integración con Leaflet & Canvas</strong>: Uso de Leaflet
+              para la capa base del mapa y HTML5 Canvas para el renderizado
+              dinámico de la ruta calculada, garantizando una interacción
+            </li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <h1 className="font-bold text-xl">Heurística</h1>
+          <p className="font-thin">
+            Cálculo de distancia entre coordenadas usando Haversine
+          </p>
+          <CodeSnippet
+            language="javascript"
+            code={`export const haversineDistance = (a: MapNode, b: MapNode): number => {
+  const R = 6371000; // Radio de la tierra en metros
+  const toRad = (deg: number) => (deg * Math.PI) / 180;
+  const dLat = toRad(b.lat - a.lat);
+  const dLon = toRad(b.lon - a.lon);
+  const sinDLat = Math.sin(dLat / 2);
+  const sinDLon = Math.sin(dLon / 2);
+  const a2 =
+    sinDLat * sinDLat +
+    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * sinDLon * sinDLon;
+  return R * 2 * Math.atan2(Math.sqrt(a2), Math.sqrt(1 - a2));
+};
+              `}
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col w-full md:px-10 mt-5">
+        <h1 className="font-bold text-xl">Parser</h1>
+        <p className="font-thin">Conversión de archivo .json</p>
+        <CodeSnippet
+          language="javascript"
+          code={`export function parseOverpassJSONToGraph(jsonText: string) {
+    const data: OverpassJSON = JSON.parse(jsonText);
+    const nodes = new Map<string, MapNode>();
+    const graph: Graph = new Map();
+  
+    for (const el of data.elements) {
+      if (el.type === "node" && el.lat !== undefined && el.lon !== undefined)
+        nodes.set(String(el.id), { id: String(el.id), lat: el.lat, lon: el.lon });
+    }
+  
+    for (const el of data.elements) {
+      if (el.type !== "way" || !el.tags || !el.nodes) continue;
+      if (!isRoutableWay(el.tags)) continue;
+      buildGraphEdges(
+        graph,
+        nodes,
+        el.nodes.map(String),
+        el.tags["oneway"] === "yes",
+      );
+    }
+  
+    return { graph, nodes, bounds: computeBoundsFromNodes(nodes) };
+  }`}
+        />
+
+        <div className="flex">
+          <a
+            className="flex gap-2 items-center underline text-lg"
+            href="https://github.com/angelsr16/web-portfolio/tree/main/src/features/pathfinding-map"
+            target="_blank"
+          >
+            Ver código fuente
+            <FaGithub />
+          </a>
         </div>
       </div>
     </div>

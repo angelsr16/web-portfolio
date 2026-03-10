@@ -1,7 +1,7 @@
 import type { MapNode } from "../models/MapNode";
 
 export const haversineDistance = (a: MapNode, b: MapNode): number => {
-  const R = 6371000; // Earth radius in meters
+  const R = 6371000; // Radio de la tierra en metros
   const toRad = (deg: number) => (deg * Math.PI) / 180;
   const dLat = toRad(b.lat - a.lat);
   const dLon = toRad(b.lon - a.lon);
