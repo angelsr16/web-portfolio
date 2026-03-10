@@ -1,4 +1,5 @@
-import { colors } from "../constants/tokens";
+import { Card } from "../../../components/Card";
+import { Pill } from "../../../components/Pill";
 
 const skills = [
   "IA",
@@ -36,10 +37,7 @@ export default function AboutSection() {
             <span>Developer</span>
           </h1>
 
-          <p
-            style={{ color: colors.textMuted }}
-            className="font-thin leading-relaxed"
-          >
+          <p className="font-thin leading-relaxed text-brand-textMuted">
             Graduado del{" "}
             <strong>Instituto Tecnológico Superior de Xalapa</strong>, Ingeniero
             en Sistemas Computacionales con más de{" "}
@@ -47,17 +45,14 @@ export default function AboutSection() {
             de alto impacto.
           </p>
 
-          <p
-            style={{ color: colors.textMuted }}
-            className="font-thin leading-relaxed"
-          >
+          <p className="font-thin leading-relaxed text-brand-textMuted">
             Especializado en arquitecturas Fullstack modernas. Profesional
             autodidacta con enfoque en software{" "}
             <strong>modular, mantenible y de alto impacto</strong>, con
             capacidad de adaptación rápida a nuevas tecnologías.
           </p>
 
-          <p style={{ color: colors.textMuted }} className="bio-extra text-sm">
+          <p className="bio-extra text-sm text-brand-textMuted">
             Disfruto explorar problemas complejos que combinan optimización,
             lógica y diseño estructural. Además, tengo una fuerte pasión por el
             desarrollo de videojuegos como espacio para integrar creatividad,
@@ -69,12 +64,12 @@ export default function AboutSection() {
           <div className="exp-header">
             <div className="section-label">Experiencia Laboral</div>
 
-            <div className="org-card">
+            <Card>
               <div className="org-name">
                 H. Ayuntamiento de San Juan Bautista Tuxtepec, Oaxaca
               </div>
               <span className="date-badge">2021 – 2024</span>
-            </div>
+            </Card>
           </div>
 
           <div>
@@ -92,27 +87,13 @@ export default function AboutSection() {
             </div>
           </div>
 
-          <div className="skills-row">
-            {skills.map((s) => (
-              <span key={s} className="skill-pill">
-                {s}
-              </span>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {skills.map((skill) => (
+              <Pill key={skill} className="skill-pill">
+                {skill}
+              </Pill>
             ))}
           </div>
-          {/* <div className="stats-row">
-            <div className="stat-item">
-              <span className="stat-number">5+</span>
-              <span className="stat-desc">Años de experiencia</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">2</span>
-              <span className="stat-desc">Proyectos gubernamentales</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">7</span>
-              <span className="stat-desc">Tecnologías core</span>
-            </div>
-          </div> */}
         </div>
       </div>
     </section>

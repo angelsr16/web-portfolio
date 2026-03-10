@@ -1,6 +1,6 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaFileArrowDown } from "react-icons/fa6";
-import { colors } from "../constants/tokens";
+import { Separator } from "../../../components/Separator";
 import HeroLink from "./HeroLink";
 import TechItem from "./TechItem";
 
@@ -11,47 +11,33 @@ export const HeroSection = () => {
         Ángel de Jesús Sánchez Romero
       </h2>
 
-      <p
-        style={{ color: colors.text }}
-        className="md:text-4xl mb-10 text-xl font-bold text-center"
-      >
+      <p className="md:text-4xl text-white mb-10 text-xl font-bold text-center">
         Desarrollador Full Stack
       </p>
 
       <div className="flex justify-center gap-3 mb-10">
         <HeroLink target="_blank" href="https://www.linkedin.com/in/angelsr16/">
-          <FaLinkedin
-            style={{ color: colors.text }}
-            className="md:text-2xl text-lg"
-          />
+          <FaLinkedin className="md:text-2xl text-lg text-white" />
         </HeroLink>
 
         <HeroLink target="_blank" href="https://github.com/angelsr16">
-          <FaGithub
-            style={{ color: colors.text }}
-            className="md:text-2xl text-lg"
-          />
+          <FaGithub className="md:text-2xl text-lg text-white" />
         </HeroLink>
 
         <HeroLink href="assets/cv.pdf" download="CV - Angel Sanchez.pdf">
-          <span style={{ color: colors.text }} className="font-bold">
-            CV
-          </span>
-          <FaFileArrowDown
-            style={{ color: colors.text }}
-            className="size-5 group-hover:translate-y-1/5 transition"
-          />
+          <span className="font-bold text-white">CV</span>
+          <FaFileArrowDown className="size-5 group-hover:translate-y-1/5 transition text-white" />
         </HeroLink>
       </div>
 
       <span className="flex gap-1 items-center text-white group select-none font-thin italic">
         Siempre aprendiendo, siempre construyendo
       </span>
-      <hr className="w-12 gradient-hr mt-5 mb-10" />
+      <Separator className="w-12 mt-5 mb-10" />
 
       <p className="text-lg text-white text-center font-thin mb-5">
         +5 años de experiencia.{" "}
-        <span style={{ color: colors.primary }}>
+        <span className="text-brand-primary">
           Ingeniero en Sistemas y Desarrollador de Software
         </span>
       </p>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BsFillEraserFill } from "react-icons/bs";
 import { GrClearOption } from "react-icons/gr";
 import { MdDraw } from "react-icons/md";
-import { colors } from "../../constants/tokens";
+import { Separator } from "../../components/Separator";
 import { sleep } from "../../lib/helpers";
 import { PlaygroundCanvas } from "./components/PlaygroundCanvas";
 import {
@@ -95,25 +95,23 @@ export const Pathfinding = () => {
 
         <div className="w-full flex gap-2">
           <button
-            style={{ backgroundColor: isDrawing ? colors.secondary : "" }}
             onClick={() => setIsDrawing((prev) => !prev)}
-            className="flex-1 uppercase flex gap-2 justify-center items-center"
+            className={`flex-1 uppercase flex gap-2 justify-center items-center ${isDrawing && "bg-brand-secondary"}`}
           >
             Dibujar
             <MdDraw size={24} />
           </button>
 
           <button
-            style={{ backgroundColor: !isDrawing ? colors.secondary : "" }}
             onClick={() => setIsDrawing((prev) => !prev)}
-            className="flex-1 uppercase flex gap-2 justify-center items-center"
+            className={`flex-1 uppercase flex gap-2 justify-center items-center ${!isDrawing && "bg-brand-secondary"}`}
           >
             Borrar
             <BsFillEraserFill size={24} />
           </button>
         </div>
 
-        <hr />
+        <Separator />
 
         <div className="flex flex-col gap-2">
           <label htmlFor="mazeAlgorithm">Generación de Laberinto</label>

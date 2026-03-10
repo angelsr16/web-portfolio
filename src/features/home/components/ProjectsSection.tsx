@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { colors } from "../constants/tokens";
 import FilterItem from "./FilterItem";
 import ProjectsList from "./ProjectsList";
 
@@ -16,7 +15,7 @@ export const ProjectsSection = () => {
   };
 
   return (
-    <section style={{ color: colors.text }} className="md:mb-20 mb-10">
+    <section className="md:mb-20 mb-10 text-brand-text">
       <div className="section-label mb-5">Proyectos Personales</div>
 
       <div className="flex whitespace-nowrap gap-5 flex-wrap">

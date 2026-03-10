@@ -13,7 +13,7 @@ body {
 
 body::before {
   content: "";
-  position: fixed; /* fixed so it covers on scroll */
+  position: fixed;
   inset: 0;
   background-image:
     linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
@@ -23,7 +23,36 @@ body::before {
   z-index: -1;
 }
 
+@theme {
+  --color-brand-primary: #38bdf8;
+  --color-brand-secondary: #0284c7;
+  --color-brand-background: #0e1726;
+  --color-brand-textMuted: #d9d6d6;
+  --color-brand-text: #f0f5fa;
+
+  --color-custom-green-500: #1ce26b;
+}
+
 @layer components {
+  .custom-card {
+    @apply relative overflow-hidden cursor-default
+    bg-white/[0.03] border border-white/[0.07]
+    rounded-[14px] px-6 py-[22px]
+    transition-colors duration-200
+    hover:border-sky-400/25 hover:bg-sky-400/5;
+  }
+
+  .custom-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-brand-primary), #6366f1);
+    border-radius: 14px 14px 0 0;
+  }
+
   input {
     @apply w-full outline-none text-[11.5px] font-medium tracking-[0.04em] text-[#7dd3fc] 
     bg-[rgba(56,189,248,0.08)] border border-[rgba(56,189,248,0.18)] rounded-md px-3 py-2
@@ -80,3 +109,47 @@ body::before {
   background-clip: text;
   animation: shine 10s linear infinite;
 }
+
+/* @import "tailwindcss";
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply min-h-full;
+  }
+
+  body {
+    @apply bg-[#080c10] relative text-slate-300 antialiased;
+  }
+
+  body::before {
+    content: "";
+    @apply fixed inset-0 pointer-events-none -z-10;
+    background-image:
+      linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@layer utilities {
+  .text-shine {
+    @apply bg-clip-text text-transparent animate-[shine_10s_linear_infinite];
+    background-image: linear-gradient(
+      90deg,
+      #0ea5e9,
+      #38bdf8,
+      #e0f7ff,
+      #38bdf8,
+      #0ea5e9
+    );
+    background-size: 200% auto;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: -200% center;
+  }
+} */

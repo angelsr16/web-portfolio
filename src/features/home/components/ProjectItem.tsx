@@ -1,5 +1,7 @@
 import { FaGithub } from "react-icons/fa";
-import type { Project } from "../types/project.types";
+import { Card } from "../../../components/Card";
+import { Separator } from "../../../components/Separator";
+import type { Project } from "../../../types/project.types";
 import { TagItem } from "./TagItem";
 import TechItem from "./TechItem";
 
@@ -9,14 +11,14 @@ type ProjectItemProps = Project & {
 
 const ProjectItem = ({ title, description, onClick }: ProjectItemProps) => {
   return (
-    <div className="card" onClick={onClick}>
+    <Card onClick={onClick}>
       <h3 className="text-slate-300 md:text-3xl text-xl font-bold mb-2">
         {title}
       </h3>
 
       <p className="font-thin">{description}</p>
 
-      <hr className="my-4 text-slate-700" />
+      <Separator className="my-4" />
 
       <div className="flex gap-2">
         <TechItem imageTitle="react" techTitle="angular" size="w-6" />
@@ -39,7 +41,7 @@ const ProjectItem = ({ title, description, onClick }: ProjectItemProps) => {
           <FaGithub />
         </a>
       </div>
-    </div>
+    </Card>
   );
 };
 

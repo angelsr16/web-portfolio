@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { EightPuzzleSolverWrapper } from "../pages/projects/EightPuzzleSolver";
-import { PathfindingMapWrapper } from "../pages/projects/PathFindingMap";
-import { PathfindingWrapper } from "../pages/projects/Pathfinding";
-import { SudokuSolver } from "../pages/projects/SudokuSolver";
-import type { Project } from "../types/project.types";
-import { Modal } from "./Modal";
+
+import { Modal } from "../../../components/Modal";
+import { EightPuzzleSolverWrapper } from "../../../pages/projects/EightPuzzleSolver";
+import { PathfindingWrapper } from "../../../pages/projects/Pathfinding";
+import { PathfindingMapWrapper } from "../../../pages/projects/PathFindingMap";
+import { SudokuSolver } from "../../../pages/projects/SudokuSolver";
+import type { Project } from "../../../types/project.types";
 import ProjectItem from "./ProjectItem";
 
 const ProjectsList = () => {
