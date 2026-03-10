@@ -1,13 +1,13 @@
 import { Card } from "../../../components/Card";
 
 const skills = [
-  "IA",
-  "Patrones de diseño",
+  "Desarrollo Fullstack",
+  "Algoritmos e Inteligencia Artificial",
   "Estructura de Datos",
-  "Node.js",
-  "Express",
-  "Firebase",
-  "AWS",
+  "Desarrollo Backend",
+  "Frontend Moderno",
+  "Arquitectura de Software",
+  "Cloud & Infraestructura",
 ];
 
 const projects = [
@@ -67,7 +67,7 @@ export default function AboutSection() {
               <div className="org-name">
                 H. Ayuntamiento de San Juan Bautista Tuxtepec, Oaxaca
               </div>
-              <span className="date-badge">2021 – 2024</span>
+              <span className="badge">2021 – 2024</span>
             </Card>
           </div>
 

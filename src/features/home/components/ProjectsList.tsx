@@ -4,7 +4,6 @@ import { Modal } from "../../../components/Modal";
 import { EightPuzzleSolverWrapper } from "../../../pages/projects/EightPuzzleSolver";
 import { PathfindingWrapper } from "../../../pages/projects/Pathfinding";
 import { PathfindingMapWrapper } from "../../../pages/projects/PathFindingMap";
-import { SudokuSolver } from "../../../pages/projects/SudokuSolver";
 import type { Project } from "../../../types/project.types";
 import ProjectItem from "./ProjectItem";
 
@@ -18,33 +17,45 @@ const ProjectsList = () => {
     {
       id: 1,
       title: "8-puzzle Solver",
-      description: "Testing",
-      techList: [],
-      tags: [],
+      description:
+        "Implementación de un solucionador interactivo para el clásico rompecabezas deslizante, utilizando el algoritmo de búsqueda A* y estructuras de datos eficientes para encontrar la ruta óptima hacia el estado objetivo.",
+      techList: [
+        { techImage: "typescript", techTitle: "Typescript" },
+        { techImage: "react", techTitle: "React" },
+      ],
+      tags: ["HTML5 Canvas", "IA"],
       component: EightPuzzleSolverWrapper,
     },
-    {
-      id: 2,
-      title: "Sudoku Solver",
-      description: "Testing",
-      techList: [],
-      tags: [],
-      component: SudokuSolver,
-    },
+    // {
+    //   id: 2,
+    //   title: "Sudoku Solver",
+    //   description: "Testing",
+    //   techList: [],
+    //   tags: [],
+    //   component: SudokuSolver,
+    // },
     {
       id: 3,
       title: "A* Pathfinding Real Data Map",
-      description: "Testing",
-      techList: [],
-      tags: [],
+      description:
+        "Motor de navegación que implementa el algoritmo A* sobre grafos de coordenadas reales. El sistema procesa archivos OpenStreetMap para reconstruir redes viales y calcular rutas óptimas entre puntos geográficos.",
+      techList: [
+        { techImage: "typescript", techTitle: "Typescript" },
+        { techImage: "react", techTitle: "React" },
+      ],
+      tags: ["Leaflet Maps", "OpenStreetMap", "Overpass Turbo API", "IA"],
       component: PathfindingMapWrapper,
     },
     {
       id: 4,
       title: "Pathfinding Visualization",
-      description: "Testing",
-      techList: [],
-      tags: [],
+      description:
+        "Entorno interactivo diseñado para la exploración de algoritmos de grafos. Permite a los usuarios generar laberintos procedurales o dibujarlos manualmente. Implementa un motor de búsqueda A* visual.",
+      techList: [
+        { techImage: "typescript", techTitle: "Typescript" },
+        { techImage: "react", techTitle: "React" },
+      ],
+      tags: ["HTML5 Canvas", "IA"],
       component: PathfindingWrapper,
     },
   ];
@@ -65,12 +76,6 @@ const ProjectsList = () => {
           />
         ))}
       </div>
-      <button
-        onClick={() => setOpen(true)}
-        className="rounded-xl bg-stone-900 px-6 py-3 text-sm font-medium text-white shadow-lg transition-all hover:bg-stone-700 hover:shadow-xl active:scale-95"
-      >
-        Open Modal
-      </button>
 
       <Modal
         isOpen={open}

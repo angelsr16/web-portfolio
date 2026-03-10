@@ -9,37 +9,55 @@ type ProjectItemProps = Project & {
   onClick?: () => void;
 };
 
-const ProjectItem = ({ title, description, onClick }: ProjectItemProps) => {
+const ProjectItem = ({
+  title,
+  description,
+  techList,
+  tags,
+  onClick,
+}: ProjectItemProps) => {
   return (
-    <Card onClick={onClick}>
-      <h3 className="text-slate-300 md:text-3xl text-xl font-bold mb-2">
-        {title}
-      </h3>
+    <Card>
+      <div className="flex flex-col justify-between">
+        <h3 className="text-slate-300 md:text-3xl text-xl font-bold mb-2">
+          {title}
+        </h3>
 
-      <p className="font-thin">{description}</p>
+        <p className="font-thin">{description}</p>
 
-      <Separator className="my-4" />
+        <Separator className="my-4" />
 
-      <div className="flex gap-2">
-        <TechItem imageTitle="react" techTitle="angular" size="w-6" />
-        <TechItem imageTitle="typescript" techTitle="angular" size="w-6" />
-        <TechItem imageTitle="nodejs" techTitle="angular" size="w-6" />
-      </div>
-
-      <div className="flex gap-2 mt-5 justify-between items-end">
-        <div className="flex-1 flex gap-1 flex-wrap">
-          <TagItem title="IA" />
-          <TagItem title="Visualización" />
-          <TagItem title="Pathfinding" />
+        <div className="flex gap-2">
+          {techList.map((tech, index) => (
+            <TechItem
+              key={index}
+              imageTitle={tech.techImage}
+              techTitle={tech.techTitle}
+              size="w-6"
+            />
+          ))}
         </div>
 
-        <a
-          className="flex gap-2 items-center text-xs underline text-white"
-          href=""
-        >
-          View Project
-          <FaGithub />
-        </a>
+        <div className="flex gap-4 mt-5 justify-between items-end">
+          <div className="flex-1 flex gap-1 flex-wrap">
+            {tags.map((tag, index) => (
+              <TagItem key={index} title={tag} />
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span
+              onClick={onClick}
+              className="badge cursor-pointer text-white!"
+            >
+              Live Demo
+            </span>
+
+            <a href="">
+              <FaGithub />
+            </a>
+          </div>
+        </div>
       </div>
     </Card>
   );

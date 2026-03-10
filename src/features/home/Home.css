@@ -85,7 +85,7 @@
   line-height: 1.4;
 }
 
-.date-badge {
+.badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -99,7 +99,7 @@
   font-family: "Syne", sans-serif;
   letter-spacing: 0.04em;
 }
-.date-badge::before {
+.badge::before {
   content: "";
   width: 6px;
   height: 6px;

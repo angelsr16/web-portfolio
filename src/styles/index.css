@@ -48,7 +48,7 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
+    height: 5px;
     background: linear-gradient(90deg, var(--color-brand-primary), #6366f1);
     border-radius: 14px 14px 0 0;
   }
