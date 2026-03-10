@@ -26,13 +26,19 @@ export const StepControls = ({
   };
 
   return (
-    <div className="flex gap-4 items-center">
-      <button className="flex gap-1 items-center" onClick={handlePrevio}>
+    <div className="w-full flex gap-4 items-center justify-between">
+      <button
+        className="flex-1 flex justify-center gap-1 items-center uppercase"
+        onClick={handlePrevio}
+      >
         <FaChevronLeft />
         Previo
       </button>
 
-      <button className="flex gap-1 items-center" onClick={handleSiguiente}>
+      <button
+        className="flex-1 flex justify-center gap-1 items-center uppercase"
+        onClick={handleSiguiente}
+      >
         Siguiente
         <FaChevronRight />
       </button>

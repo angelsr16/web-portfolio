@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { CiImport } from "react-icons/ci";
+import { GiPathDistance } from "react-icons/gi";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { EdgeLayer } from "./components/EdgeLayer";
 import FitBounds from "./components/FitBounds";
@@ -74,31 +76,7 @@ export const PathfindingMap = () => {
 
   return (
     <div>
-      <div className="flex gap-2 mb-5">
-        <label htmlFor="file-upload" className="custom-button px-5">
-          <span>Importar .json</span>
-          <input
-            className="hidden"
-            id="file-upload"
-            type="file"
-            accept=".json"
-            onChange={handleFile}
-          />
-        </label>
-
-        {graph && (
-          <>
-            <PathfindingControls
-              startId={startId}
-              endId={endId}
-              onChange={handleInputChange}
-            />
-            <button onClick={() => handleSearchPath()}>Buscar</button>
-          </>
-        )}
-      </div>
-
-      <div>
+      <div style={{ position: "relative" }}>
         <MapContainer
           center={[51.505, -0.09]}
           zoom={13}
@@ -135,6 +113,50 @@ export const PathfindingMap = () => {
 
           {bounds && <FitBounds bounds={bounds} />}
         </MapContainer>
+
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            padding: 10,
+            zIndex: 1000,
+          }}
+        >
+          <div className="flex flex-col gap-2 mb-5">
+            <label
+              htmlFor="file-upload"
+              className="custom-button text-center bg-brand-secondary px-5 cursor-pointer uppercase flex justify-center items-center gap-2"
+            >
+              <span>Importar .json</span>
+              <CiImport size={24} />
+              <input
+                className="hidden"
+                id="file-upload"
+                type="file"
+                accept=".json"
+                onChange={handleFile}
+              />
+            </label>
+
+            {graph && (
+              <>
+                <PathfindingControls
+                  startId={startId}
+                  endId={endId}
+                  onChange={handleInputChange}
+                />
+                <button
+                  className="bg-brand-secondary uppercase flex gap-2 items-center justify-center cursor-pointer"
+                  onClick={() => handleSearchPath()}
+                >
+                  Buscar
+                  <GiPathDistance size={24} />
+                </button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

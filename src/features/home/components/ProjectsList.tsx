@@ -16,7 +16,7 @@ const ProjectsList = () => {
   const projectsList: Project[] = [
     {
       id: 1,
-      title: "8-puzzle Solver",
+      title: "8 puzzle Solver",
       description:
         "Implementación de un solucionador interactivo para el clásico rompecabezas deslizante, utilizando el algoritmo de búsqueda A* y estructuras de datos eficientes para encontrar la ruta óptima hacia el estado objetivo.",
       techList: [
@@ -80,7 +80,7 @@ const ProjectsList = () => {
       <Modal
         isOpen={open}
         onClose={() => setOpen(false)}
-        title="Detalles del proyecto"
+        title={`DETALLES DEL PROYECTO - ${currentProject?.title.toUpperCase()}`}
         closeOnOverlayClick={false}
         size="default"
       >
