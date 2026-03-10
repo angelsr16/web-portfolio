@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
+import { useResizableCanvas } from "../../../hooks/useResizableCanvas";
 import {
   drawRoundedRect,
   getCanvasContext,
   getGridIndexFromClick,
-} from "../../../helpers/canvas";
-import { useResizableCanvas } from "../../../hooks/useResizableCanvas";
+} from "../../../lib/canvas";
 import {
   EMPTY_CELL,
   END_CELL,

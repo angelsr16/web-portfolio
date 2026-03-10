@@ -1,11 +1,11 @@
 import { useCallback } from "react";
+import { useResizableCanvas } from "../../../hooks/useResizableCanvas";
 import {
   drawRoundedRect,
   drawText,
   getCanvasContext,
   getIndexFromGridClick,
-} from "../../../helpers/canvas";
-import { useResizableCanvas } from "../../../hooks/useResizableCanvas";
+} from "../../../lib/canvas";
 
 export const PuzzleCanvas = ({
   grid,

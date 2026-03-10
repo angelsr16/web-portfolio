@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { parseOverpassJSONToGraph } from "../lib/parsers";
 import type { Graph } from "../models/Graph";
 import type { MapBounds } from "../models/MapBounds";
 import type { MapNode } from "../models/MapNode";
-import { parseOverpassJSONToGraph } from "../utils/parsers";
 
 export const useGraphData = () => {
   const [graph, setGraph] = useState<Graph | null>(null);

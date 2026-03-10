@@ -1,12 +1,9 @@
 import { Heapq } from "ts-heapq";
+import { haversineDistance } from "../lib/heuristic";
 import type { Graph } from "../models/Graph";
 import type { MapNode } from "../models/MapNode";
-import { haversineDistance } from "../utils/heuristic";
 
 type HeapNode = { id: string; f: number };
-
-// const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export const aStar = async (
   graph: Graph,
   nodes: Map<string, MapNode>,
@@ -32,7 +29,7 @@ export const aStar = async (
     const { id: current } = openSet.pop();
 
     if (current === endId) return reconstructPath(cameFrom, current);
-    if (visited.has(current)) continue; // stale entry - skip
+    if (visited.has(current)) continue;
     visited.add(current);
 
     // await sleep(0.0001);

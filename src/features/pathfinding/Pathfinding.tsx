@@ -3,6 +3,7 @@ import { BsFillEraserFill } from "react-icons/bs";
 import { GrClearOption } from "react-icons/gr";
 import { MdDraw } from "react-icons/md";
 import { colors } from "../../constants/tokens";
+import { sleep } from "../../lib/helpers";
 import { PlaygroundCanvas } from "./components/PlaygroundCanvas";
 import {
   DEFAULT_THEME,
@@ -13,8 +14,6 @@ import { useLogicalGrid } from "./hooks/useLogicalGrid";
 import { useMazeGenerator, type MazeGenerator } from "./hooks/useMazeGenerator";
 import { usePathfinding } from "./hooks/usePathfinding";
 import type { Cell } from "./models/Cell";
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const Pathfinding = () => {
   const [mazeTheme, setMazeTheme] = useState<MazeTheme>(DEFAULT_THEME);

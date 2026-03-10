@@ -7,10 +7,7 @@ import TechItem from "./TechItem";
 export const HeroSection = () => {
   return (
     <section className="md:my-40 my-10 flex flex-col items-center">
-      <h2
-        style={{ color: colors.primary }}
-        className="md:text-5xl text-3xl text-center font-black mb-3"
-      >
+      <h2 className="md:text-5xl text-3xl text-center font-black mb-3 text-shine">
         Ángel de Jesús Sánchez Romero
       </h2>
 

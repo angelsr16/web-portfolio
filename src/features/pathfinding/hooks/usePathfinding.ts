@@ -3,13 +3,12 @@ import { Heapq } from "ts-heapq";
 import {
   getGridIndexFromRowAndCol,
   getRowAndColFromIndex,
-} from "../../../helpers/canvas";
+} from "../../../lib/canvas";
+import { sleep } from "../../../lib/helpers";
 import { FRONTIER_CELL, VISITED_CELL, WALL_CELL } from "../constants/constants";
 import { Cell } from "../models/Cell";
 
 type Node = [number, number, number, number];
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const usePathfinding = ({
   grid,
@@ -35,7 +34,7 @@ export const usePathfinding = ({
     row: number,
     col: number,
     newRow: number,
-    newCol: number
+    newCol: number,
   ): boolean => {
     const dr = newRow - row;
     const dc = newCol - col;
@@ -59,26 +58,26 @@ export const usePathfinding = ({
   const heuristic = (row: number, col: number, target: number): number => {
     const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
       gridSize,
-      target
+      target,
     );
     return Math.sqrt((targetCol - col) ** 2 + (targetRow - row) ** 2);
   };
 
   const searchPath = async (
     origin: number,
-    target: number
+    target: number,
   ): Promise<Cell | null> => {
     const { row: startRow, col: startCol } = getRowAndColFromIndex(
       gridSize,
-      origin
+      origin,
     );
     const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
       gridSize,
-      target
+      target,
     );
 
     const closedList: boolean[][] = Array.from({ length: gridSize }, () =>
-      new Array(gridSize).fill(false)
+      new Array(gridSize).fill(false),
     );
     // const cellDetails: Cell[][] = Array.from({ length: gridSize }, () =>
     //   Array.from({ length: gridSize }, () => new Cell()),
@@ -86,8 +85,8 @@ export const usePathfinding = ({
     const cellDetails: Cell[][] = Array.from({ length: gridSize }, (_, row) =>
       Array.from(
         { length: gridSize },
-        (_, col) => new Cell(getGridIndexFromRowAndCol(row, col, gridSize))
-      )
+        (_, col) => new Cell(getGridIndexFromRowAndCol(row, col, gridSize)),
+      ),
     );
 
     cellDetails[startRow][startCol].fCost = 0;
@@ -108,7 +107,7 @@ export const usePathfinding = ({
       const index = getGridIndexFromRowAndCol(row, col, gridSize);
       updateCell(index, VISITED_CELL);
 
-      await sleep(25);
+      await sleep(5);
 
       closedList[row][col] = true;
 
@@ -135,9 +134,9 @@ export const usePathfinding = ({
         ) {
           updateCell(
             getGridIndexFromRowAndCol(newRow, newCol, gridSize),
-            FRONTIER_CELL
+            FRONTIER_CELL,
           );
-          sleep(5);
+          await sleep(5);
           if (newRow === targetRow && newCol === targetCol) {
             cellDetails[newRow][newCol].parent = cellDetails[row][col];
             return cellDetails[row][col];

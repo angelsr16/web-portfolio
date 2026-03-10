@@ -1,7 +1,7 @@
 import { PuzzleCanvas } from "./components/PuzzleCanvas";
 import { StepControls } from "./components/StepControls";
 import { useEightPuzzle } from "./hooks/useEightPuzzle";
-import { getRandomPuzzle } from "./utils/helpers";
+import { getRandomPuzzle } from "./lib/helpers";
 
 export const EightPuzzleSolver = () => {
   const { grid, solve, moveTile, path, setGrid } = useEightPuzzle();

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import aStar from "../algorithms/aStar";
 import { GoalState } from "../constants/GoalState";
+import { getPath } from "../lib/helpers";
 import type { PuzzleState } from "../models/PuzzleState";
-import { getPath } from "../utils/helpers";
 
 export const useEightPuzzle = (n = 3) => {
   const [grid, setGrid] = useState([1, 2, 3, 4, 5, 6, 7, 8, 0]);

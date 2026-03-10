@@ -1,8 +1,8 @@
 import { Heapq } from "ts-heapq";
 import { Moves, type Move } from "../constants/Moves";
+import { moveTile } from "../lib/helpers";
+import { heuristic } from "../lib/heuristic";
 import type { PuzzleState } from "../models/PuzzleState";
-import { moveTile } from "../utils/helpers";
-import { heuristic } from "../utils/heuristic";
 
 const aStar = (
   startGrid: number[],

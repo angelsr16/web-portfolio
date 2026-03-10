@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { EightPuzzleSolverWrapper } from "../pages/projects/EightPuzzleSolverWrapper";
-import { PathfindingMapWrapper } from "../pages/projects/PathFindingMapWrapper";
-import { PathfindingWrapper } from "../pages/projects/PathfindingWrapper";
+import { EightPuzzleSolverWrapper } from "../pages/projects/EightPuzzleSolver";
+import { PathfindingMapWrapper } from "../pages/projects/PathFindingMap";
+import { PathfindingWrapper } from "../pages/projects/Pathfinding";
 import { SudokuSolver } from "../pages/projects/SudokuSolver";
 import type { Project } from "../types/project.types";
 import { Modal } from "./Modal";
