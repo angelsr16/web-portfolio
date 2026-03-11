@@ -31,7 +31,7 @@ export const Pathfinding = () => {
     updateCell,
     startIndex,
     endIndex,
-  } = useLogicalGrid(20);
+  } = useLogicalGrid(25);
 
   const { generateMaze, mazeGeneratorAlgorithm, setMazeGeneratorAlgorithm } =
     useMazeGenerator({ gridSize });
@@ -46,18 +46,18 @@ export const Pathfinding = () => {
     setGrid(generateMaze());
   };
 
-  const handleSearchPath = () => {
-    searchPath(startIndex, endIndex).then(async (cell) => {
-      if (cell !== null) {
-        let currentCell: Cell | null = cell;
+  const handleSearchPath = async () => {
+    const cell = await searchPath(startIndex, endIndex);
 
-        while (currentCell) {
-          updateCell(currentCell.index, PATH_CELL);
-          currentCell = currentCell.parent;
-          await sleep(10);
-        }
-      }
-    });
+    if (!cell) return;
+
+    let currentCell: Cell | null = cell;
+
+    while (currentCell) {
+      updateCell(currentCell.index, PATH_CELL);
+      await sleep(10);
+      currentCell = currentCell.parent;
+    }
   };
 
   return (

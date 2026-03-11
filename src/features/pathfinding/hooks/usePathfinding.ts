@@ -1,14 +1,5 @@
-import { useState } from "react";
-import { Heapq } from "ts-heapq";
-import {
-  getGridIndexFromRowAndCol,
-  getRowAndColFromIndex,
-} from "../../../lib/canvas";
-import { sleep } from "../../../lib/helpers";
-import { FRONTIER_CELL, VISITED_CELL, WALL_CELL } from "../constants/constants";
+import { useEffect, useRef, useState } from "react";
 import { Cell } from "../models/Cell";
-
-type Node = [number, number, number, number];
 
 export const usePathfinding = ({
   grid,
@@ -17,152 +8,60 @@ export const usePathfinding = ({
 }: {
   grid: number[];
   gridSize: number;
-  updateCell: (index: number, value: number) => void;
+  updateCell: (index: number, newValue: number) => void;
 }) => {
+  const workerRef = useRef<Worker | null>(null);
   const [searchAlgorithm, setSearchAlgorithm] = useState("A*");
 
-  const isCellValid = (row: number, col: number): boolean => {
-    return row >= 0 && row < gridSize && col >= 0 && col < gridSize;
-  };
-
-  const isUnblocked = (row: number, col: number) => {
-    const index = getGridIndexFromRowAndCol(row, col, gridSize);
-    return grid[index] !== WALL_CELL;
-  };
-
-  const isDiagonalMoveValid = (
-    row: number,
-    col: number,
-    newRow: number,
-    newCol: number,
-  ): boolean => {
-    const dr = newRow - row;
-    const dc = newCol - col;
-
-    if (Math.abs(dr) === 1 && Math.abs(dc) === 1) {
-      return isUnblocked(row + dr, col) && isUnblocked(row, col + dc);
-    }
-
-    return true;
-  };
-
-  // Manhattan Distance
-  // const heuristic = (row: number, col: number, target: number): number => {
-  //   const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
-  //     gridSize,
-  //     target,
-  //   );
-  //   return Math.abs(targetCol - col) + Math.abs(targetRow - row);
-  // };
-  // Euclidean Distance
-  const heuristic = (row: number, col: number, target: number): number => {
-    const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
-      gridSize,
-      target,
-    );
-    return Math.sqrt((targetCol - col) ** 2 + (targetRow - row) ** 2);
-  };
-
-  const searchPath = async (
-    origin: number,
-    target: number,
-  ): Promise<Cell | null> => {
-    const { row: startRow, col: startCol } = getRowAndColFromIndex(
-      gridSize,
-      origin,
-    );
-    const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
-      gridSize,
-      target,
+  useEffect(() => {
+    workerRef.current = new Worker(
+      new URL("../pathfinding.worker.ts", import.meta.url),
+      { type: "module" },
     );
 
-    const closedList: boolean[][] = Array.from({ length: gridSize }, () =>
-      new Array(gridSize).fill(false),
-    );
-    // const cellDetails: Cell[][] = Array.from({ length: gridSize }, () =>
-    //   Array.from({ length: gridSize }, () => new Cell()),
-    // );
-    const cellDetails: Cell[][] = Array.from({ length: gridSize }, (_, row) =>
-      Array.from(
-        { length: gridSize },
-        (_, col) => new Cell(getGridIndexFromRowAndCol(row, col, gridSize)),
-      ),
-    );
+    workerRef.current.onmessage = (e: MessageEvent) => {
+      console.log(e.data);
+    };
 
-    cellDetails[startRow][startCol].fCost = 0;
-    cellDetails[startRow][startCol].gCost = 0;
-    cellDetails[startRow][startCol].hCost = 0;
-    cellDetails[startRow][startCol].parent = null;
+    return () => workerRef.current?.terminate();
+  }, []);
 
-    const openList = new Heapq<Node>([], (a, b) => {
-      if (a[0] === b[0]) {
-        return a[1] < b[1]; // menor hCost primero
-      }
-      return a[0] < b[0];
-    });
-    openList.push([0.0, 0.0, startRow, startCol]);
+  const searchPath = (origin: number, target: number): Promise<Cell | null> => {
+    return new Promise((resolve) => {
+      if (!workerRef.current) return resolve(null);
 
-    while (openList.length() > 0) {
-      const [f, h, row, col] = openList.pop();
-      const index = getGridIndexFromRowAndCol(row, col, gridSize);
-      updateCell(index, VISITED_CELL);
+      workerRef.current.onmessage = async (e: MessageEvent) => {
+        const { type, result, index, newValue } = e.data;
 
-      await sleep(5);
-
-      closedList[row][col] = true;
-
-      const directions: number[][] = [
-        [0, 1],
-        [0, -1],
-        [1, 0],
-        [-1, 0],
-        // [1, 1],
-        // [-1, -1],
-        // [-1, 1],
-        // [1, -1],
-      ];
-
-      for (const direction of directions) {
-        const newRow = row + direction[0];
-        const newCol = col + direction[1];
-
-        if (
-          isCellValid(newRow, newCol) &&
-          isUnblocked(newRow, newCol) &&
-          !closedList[newRow][newCol] &&
-          isDiagonalMoveValid(row, col, newRow, newCol)
-        ) {
-          updateCell(
-            getGridIndexFromRowAndCol(newRow, newCol, gridSize),
-            FRONTIER_CELL,
-          );
-          await sleep(5);
-          if (newRow === targetRow && newCol === targetCol) {
-            cellDetails[newRow][newCol].parent = cellDetails[row][col];
-            return cellDetails[row][col];
-          } else {
-            const newGCost = cellDetails[row][col].gCost + 1.0;
-            const newHCost = heuristic(newRow, newCol, target);
-            const newFCost = newGCost + newHCost;
-
-            if (
-              cellDetails[newRow][newCol].fCost == Infinity ||
-              cellDetails[newRow][newCol].fCost > newFCost
-            ) {
-              openList.push([newFCost, newHCost, newRow, newCol]);
-
-              cellDetails[newRow][newCol].fCost = newFCost;
-              cellDetails[newRow][newCol].gCost = newGCost;
-              cellDetails[newRow][newCol].hCost = newHCost;
-              cellDetails[newRow][newCol].parent = cellDetails[row][col];
-            }
-          }
+        if (type === "EDGE") {
+          updateCell(index, newValue);
+        } else if (type === "DONE") {
+          resolve(result);
         }
-      }
-    }
+      };
 
-    return null;
+      workerRef.current.postMessage({
+        grid,
+        origin,
+        target,
+        gridSize,
+      });
+    });
   };
+
+  // const searchPath = async (
+  //   origin: number,
+  //   target: number,
+  // ): Promise<Cell | null> => {
+  //   workerRef.current?.postMessage({
+  //     grid,
+  //     origin,
+  //     target,
+  //     gridSize,
+  //     updateCell,
+  //   });
+  //   return await aStar(grid, origin, target, gridSize, updateCell);
+  // };
 
   return { searchPath, searchAlgorithm, setSearchAlgorithm };
 };
