@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaGithub } from "react-icons/fa";
 import { TbArrowsRandom, TbRosetteDiscountCheckFilled } from "react-icons/tb";
 import CodeSnippet from "../../components/CodeSnippet";
 import { Separator } from "../../components/Separator";
@@ -79,9 +78,122 @@ export const EightPuzzleSolver = () => {
 
       <Separator className="my-5" />
 
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:px-10">
+      <div className="flex flex-col gap-3">
+        <div>
+          <h1 className="text-xl font-bold">Descripción</h1>
+
+          <p className="font-thin">
+            El 8-puzzle es un problema clásico de Inteligencia Artificial: dado
+            un tablero de 3×3 con 8 fichas numeradas y un espacio vacío,
+            encontrar la secuencia mínima de movimientos para llegar al estado
+            objetivo. Este proyecto implementa un solver automático con
+            visualización animada de cada paso de la solución.
+          </p>
+        </div>
+
+        <div>
+          <h1 className="text-xl font-bold">Cómo funciona</h1>
+
+          <p className="font-thin">
+            El motor de búsqueda usa A* (A-star), un algoritmo de búsqueda
+            informada que combina el costo real del camino recorrido con una
+            estimación heurística del costo restante. Esto garantiza encontrar
+            siempre la solución óptima — el menor número de movimientos posible.
+            La heurística utilizada es la distancia Manhattan: para cada ficha,
+            se calcula cuántos pasos horizontales y verticales la separan de su
+            posición objetivo, y se suman. Esta estimación nunca sobreestima el
+            costo real, lo que hace a A* óptimo y completo.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
+          <div>
+            <h1 className="font-bold text-xl">Heurística</h1>
+            <p className="font-thin mb-3">Cálculo de distancia Manhattan</p>
+            <CodeSnippet
+              language="javascript"
+              code={`export const heuristic = (board: number[]): number => {
+  let distance = 0;
+  for (let i = 0; i < 9; i++) {
+    if (board[i] !== 0) {
+      const x1 = Math.floor(i / 3);
+      const y1 = i % 3;
+      const x2 = Math.floor((board[i] - 1) / 3);
+      const y2 = (board[i] - 1) % 3;
+      distance += Math.abs(x1 - x2) + Math.abs(y1 - y2);
+    }
+  }
+  return distance;
+};`}
+            />
+          </div>
+
+          <div>
+            <h1 className="font-bold text-xl">
+              Detección de puzzle insolubles
+            </h1>
+            <p className="font-thin mb-3">
+              No toda configuración del 8 puzzle tiene solución. Antes de
+              ejecutar la búsqueda (o al generar el puzzle aleatoriamente), se
+              verifica la paridad de inversiones: si el número de pares de
+              fichas fuera de orden es impar, el puzzle es matemáticamente
+              irresoluble. Esto evita búsquedas infinitas en el 50% de los
+              estados aleatorios posibles
+            </p>
+            <CodeSnippet
+              language="javascript"
+              code={`export const isSolvable = (grid: number[]): boolean => {
+  let inversions = 0;
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = i + 1; j < grid.length; j++) {
+      if (grid[i] !== 0 && grid[j] !== 0 && grid[i] > grid[j]) {
+        inversions++;
+      }
+    }
+  }
+
+  return inversions % 2 === 0;
+};`}
+            />
+          </div>
+        </div>
+
+        <div>
+          <h1 className="text-xl font-bold">Visualización en Canvas</h1>
+
+          <p className="font-thin">
+            Una vez encontrada la solución, los pasos se animan sobre HTML5
+            Canvas. Cada ficha interpola su posición entre el estado actual y el
+            siguiente, logrando movimiento fluido sin librerías externas.
+          </p>
+        </div>
+
+        <div>
+          <h1 className="text-xl font-bold">Aprendizajes clave</h1>
+
+          <ul className="font-thin">
+            <li className="list-disc ml-10">
+              Implementar A* desde cero reforzó la comprensión de estructuras
+              como priority queues (min-heap) y grafos implícitos donde los
+              nodos se generan en tiempo de ejecución.
+            </li>
+            <li className="list-disc ml-10">
+              La serialización de estados como estrategia de memoización es un
+              patrón aplicable a cualquier problema de búsqueda en espacio de
+              estados.
+            </li>
+            <li className="list-disc ml-10">
+              Separar la lógica del algoritmo de la capa de animación permitió
+              testear el solver de forma independiente.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:px-10">
         <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-bold">Descripción general</h1>
+          <h1 className="text-xl font-bold">Descripción</h1>
 
           <p className="font-thin">
             Este proyecto es un solucionador interactivo para el clásico
@@ -154,7 +266,7 @@ export const EightPuzzleSolver = () => {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
