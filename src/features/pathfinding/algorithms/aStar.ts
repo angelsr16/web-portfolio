@@ -65,10 +65,6 @@ export const aStar = async (
       [0, -1],
       [1, 0],
       [-1, 0],
-      // [1, 1],
-      // [-1, -1],
-      // [-1, 1],
-      // [1, -1],
     ];
 
     for (const direction of directions) {

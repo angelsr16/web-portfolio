@@ -1,7 +1,7 @@
 import { getRowAndColFromIndex } from "../../../lib/canvas";
 
 // Euclidean Distance
-export const manhattanDistance = (
+export const euclideanDistance = (
   row: number,
   col: number,
   target: number,
@@ -15,10 +15,15 @@ export const manhattanDistance = (
 };
 
 // Manhattan Distance
-// const heuristic = (row: number, col: number, target: number): number => {
-//   const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
-//     gridSize,
-//     target,
-//   );
-//   return Math.abs(targetCol - col) + Math.abs(targetRow - row);
-// };
+export const manhattanDistance = (
+  row: number,
+  col: number,
+  target: number,
+  gridSize: number,
+): number => {
+  const { row: targetRow, col: targetCol } = getRowAndColFromIndex(
+    gridSize,
+    target,
+  );
+  return Math.abs(targetCol - col) + Math.abs(targetRow - row);
+};

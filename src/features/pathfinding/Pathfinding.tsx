@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { BsFillEraserFill } from "react-icons/bs";
-import { FaGithub } from "react-icons/fa";
 import { GrClearOption } from "react-icons/gr";
 import { MdDraw } from "react-icons/md";
 import CodeSnippet from "../../components/CodeSnippet";
@@ -62,7 +61,7 @@ export const Pathfinding = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-5">
+      <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-10 px-10">
         <div className="w-full aspect-square">
           <PlaygroundCanvas
             grid={grid}
@@ -74,7 +73,7 @@ export const Pathfinding = () => {
 
         <div className="flex flex-col gap-5">
           <div className="flex gap-2 flex-col">
-            <label htmlFor="mazeTheme">Tema</label>
+            <label htmlFor="mazeTheme">TEMA</label>
             <select
               id="mazeTheme"
               className="flex-1"
@@ -167,83 +166,157 @@ export const Pathfinding = () => {
 
       <Separator className="my-5" />
 
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:px-10">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-bold">Descripción general</h1>
+      <div className="flex flex-col gap-3">
+        <div>
+          <h1 className="text-xl font-bold">Descripción</h1>
 
           <p className="font-thin">
-            Este proyecto es un entorno interactivo (sandbox) diseñado para la
-            experimentación con algoritmos de grafos. Permite a los usuarios
-            generar laberintos procedurales complejos o dibujar sus propios
-            mapas manualmente, proporcionando una herramienta educativa para
-            observar cómo diferentes algoritmos "toman decisiones" en tiempo
-            real.
+            Visualizador interactivo de pathfinding sobre una grilla dibujable.
+            El usuario construye el laberinto a mano o lo genera
+            automáticamente, define el origen y destino, y observa en tiempo
+            real cómo el algoritmo explora el espacio y encuentra el camino más
+            corto.
+          </p>
+        </div>
+
+        <div>
+          <h1 className="text-xl font-bold">Integración con el Canva</h1>
+
+          <p className="font-thin">
+            La grilla vive enteramente en HTML5 Canvas. El usuario puede:
           </p>
 
-          <h2 className="font-semibold">Desafíos técnicos</h2>
-
           <ul className="font-thin">
-            <li className="list-disc ml-5">
-              <strong>Renderizado de Alta Frecuencia</strong>: Visualizar la
-              expansión de la búsqueda nodo por nodo requiere una gestión
-              eficiente del ciclo de vida de React para evitar cuellos de
-              botella en la interfaz de usuario.
+            <li className="list-disc ml-10">
+              Dibujar paredes haciendo click y arrastrando
             </li>
-            <li className="list-disc ml-5">
-              <strong>Abstracción Algorítmica</strong>: El sistema debía ser lo
-              suficientemente flexible como para intercambiar el algoritmo de
-              búsqueda (A*, Dijkstra, BFS) sin modificar la lógica de la rejilla
+            <li className="list-disc ml-10">Borrar celdas individualmente</li>
+            <li className="list-disc ml-10">
+              Limpiar todo el canvas de un golpe
             </li>
-          </ul>
-
-          <h2 className="font-semibold">Solución y Arquitectura</h2>
-
-          <ul className="font-thin">
-            <li className="list-disc ml-5">
-              <strong>Generación Procedural</strong>: Implementación de
-              algoritmos de generación de laberintos como Recursive
-              Backtracking, asegurando laberintos "perfectos" (sin ciclos y
-              donde cada punto es alcanzable).
-            </li>
-            <li className="list-disc ml-5">
-              <strong>Arquitectura Basada en Estrategia</strong>: Diseño modular
-              que separa la lógica del motor de búsqueda de la representación
-              visual, facilitando la escalabilidad del proyecto para añadir
-              nuevas heurísticas en el futuro.
+            <li className="list-disc ml-10">
+              Settear origen y destino clickeando en modo selección
             </li>
           </ul>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <h1 className="font-bold text-xl">Heurística</h1>
-          <p className="font-thin">Cálculo de distancia Manhattan</p>
-          <CodeSnippet
-            language="javascript"
-            code={`export const heuristic = (board: number[]): number => {
-  let distance = 0;
-  for (let i = 0; i < 9; i++) {
-    if (board[i] !== 0) {
-      const x1 = Math.floor(i / 3);
-      const y1 = i % 3;
-      const x2 = Math.floor((board[i] - 1) / 3);
-      const y2 = (board[i] - 1) % 3;
-      distance += Math.abs(x1 - x2) + Math.abs(y1 - y2);
-    }
-  }
-  return distance;
-};`}
-          />
+        <p>
+          Para dibujar fluidamente, se capturan los eventos{" "}
+          <strong>mousemove</strong> mientras el botón está presionado y se
+          convierte la posición del cursor en coordenadas de celda
+        </p>
 
-          <div className="flex">
-            <a
-              className="flex gap-2 items-center underline text-lg"
-              href="https://github.com/angelsr16/web-portfolio/tree/main/src/features/pathfinding"
-              target="_blank"
-            >
-              Ver código fuente
-              <FaGithub />
-            </a>
-          </div>
+        <CodeSnippet
+          language="javascript"
+          code={`export const getMousePositionFromEvent = (
+  event: React.MouseEvent<HTMLCanvasElement>,
+  rect: DOMRect,
+) => {
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  return { mouseX, mouseY };
+};
+
+export const getIndexFromGridClick = (
+  n: number,
+  tileSize: number,
+  mouseX: number,
+  mouseY: number,
+): number => {
+  const col = Math.floor(mouseX / tileSize);
+  const row = Math.floor(mouseY / tileSize);
+  if (row < 0 || row >= n || col < 0 || col >= n) return -1;
+  return row * n + col;
+};`}
+        />
+
+        <div>
+          <h1 className="font-bold text-xl">Generación de laberintos</h1>
+          <p className="font-thin mb-3">
+            Por el momento la generación es random — se itera sobre cada celda y
+            se decide aleatoriamente si es pared o camino libre, respetando
+            siempre las celdas de origen y destino. La arquitectura ya está
+            preparada para agregar algoritmos deterministas como Recursive
+            Backtracker o Prim's Algorithm como generadores adicionales.
+          </p>
+        </div>
+
+        <CodeSnippet
+          language="javascript"
+          code={`  const generateMaze = (): number[] => {
+    const grid: number[] = [];
+
+    for (let i: number = 0; i < gridSize * gridSize; i++) {
+      grid.push(Math.random() < 0.2 ? 1 : 0);
+    }
+
+    return grid;
+  };`}
+        />
+
+        <div>
+          <h1 className="font-bold text-xl">A* sobre la grilla</h1>
+          <p className="font-thin mb-3">
+            El algoritmo A* explora la grilla usando distancia Manhattan como
+            heurística. En cada paso, expande el nodo con menor f = g + h donde
+            g es el costo acumulado desde el origen y h la estimación al
+            destino.
+          </p>
+        </div>
+
+        <CodeSnippet
+          language="javascript"
+          code={`const newGCost = cellDetails[row][col].gCost + 1.0;
+const newHCost = manhattanDistance(newRow, newCol, target, gridSize);
+const newFCost = newGCost + newHCost;
+
+if (
+  cellDetails[newRow][newCol].fCost == Infinity ||
+  cellDetails[newRow][newCol].fCost > newFCost
+) {
+  openList.push([newFCost, newHCost, newRow, newCol]);
+
+  cellDetails[newRow][newCol].fCost = newFCost;
+  cellDetails[newRow][newCol].gCost = newGCost;
+  cellDetails[newRow][newCol].hCost = newHCost;
+  cellDetails[newRow][newCol].parent = cellDetails[row][col];
+}`}
+        />
+
+        <div>
+          <h1 className="text-xl font-bold">Aprendizajes clave</h1>
+
+          <ul className="font-thin">
+            <li className="list-disc ml-10">
+              Manejar eventos de mouse sobre Canvas para crear interacción tipo
+              "paint" — capturando drag sin perder celdas intermedias a alta
+              velocidad.
+            </li>
+            <li className="list-disc ml-10">
+              A* en una grilla uniforme es el punto de entrada ideal para
+              entender búsqueda heurística — base directa para Dijkstra con
+              pesos y problemas de optimización más complejos.
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h1 className="text-xl font-bold">Próximos pasos</h1>
+
+          <ul className="font-thin">
+            <li className="list-disc ml-10">
+              Agregar generadores deterministas: Recursive Backtracker, Prim's,
+              Kruskal
+            </li>
+            <li className="list-disc ml-10">
+              Comparar A* con BFS y Dijkstra sobre el mismo laberinto
+            </li>
+            <li className="list-disc ml-10">
+              Permitir celdas con pesos distintos para demostrar la ventaja de
+              algoritmos con costos
+            </li>
+          </ul>
         </div>
       </div>
     </div>
