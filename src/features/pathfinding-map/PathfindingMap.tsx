@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CiImport } from "react-icons/ci";
-import { FaGithub } from "react-icons/fa";
 import { GiPathDistance } from "react-icons/gi";
 import { MapContainer, TileLayer } from "react-leaflet";
 import CodeSnippet from "../../components/CodeSnippet";
@@ -150,84 +149,34 @@ export const PathfindingMap = () => {
 
       <Separator className="my-5" />
 
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:px-10">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-bold">Descripción general</h1>
+      <div className="flex flex-col gap-3">
+        <div>
+          <h1 className="text-xl font-bold">Descripción</h1>
 
           <p className="font-thin">
-            Este proyecto es un motor de búsqueda de rutas que trasciende los
-            entornos de prueba convencionales al utilizar cartografía real. El
-            sistema procesa datos vectoriales de OpenStreetMap para construir un
-            grafo vial complejo, permitiendo calcular y visualizar la ruta más
-            eficiente entre dos puntos geográficos reales.
+            Pathfinding sobre datos geográficos reales. A diferencia de grillas
+            sintéticas, este proyecto carga nodos y calles de OpenStreetMap,
+            construye el grafo en memoria y ejecuta el algoritmo de búsqueda
+            sobre la red vial real de cualquier ciudad o zona que el usuario
+            elija.
           </p>
-
-          <h2 className="font-semibold">Desafíos técnicos</h2>
-
-          <ul className="font-thin">
-            <li className="list-disc ml-5">
-              <strong>Parsing de Datos Masivos</strong>: Los archivos .osm
-              contienen una densidad enorme de información. El reto fue filtrar
-              y extraer únicamente los nodos y vías transitables para construir
-              una lista de adyacencia eficiente en memoria.
-            </li>
-            <li className="list-disc ml-5">
-              <strong>Precisión Geográfica</strong>: A diferencia de una rejilla
-              plana, los cálculos en un mapa real deben considerar la curvatura
-              terrestre para que las distancias y las heurísticas sean precisas.
-            </li>
-          </ul>
-
-          <h2 className="font-semibold">Solución y Arquitectura</h2>
-
-          <ul className="font-thin">
-            <li className="list-disc ml-5">
-              <strong>Algoritmo A* Geográfico:</strong>: mplementación del motor
-              de búsqueda optimizado para grafos de gran escala, utilizando una
-              cola de prioridad para gestionar la expansión de nodos.
-            </li>
-            <li className="list-disc ml-5">
-              <strong>Fórmula de Haversine</strong>: Integración de cálculos
-              trigonométricos para determinar la distancia de círculo máximo
-              entre coordenadas (latitud/longitud), utilizada tanto para el peso
-              de las aristas como para la heurística.
-            </li>
-
-            <li className="list-disc ml-5">
-              <strong>Integración con Leaflet & Canvas</strong>: Uso de Leaflet
-              para la capa base del mapa y HTML5 Canvas para el renderizado
-              dinámico de la ruta calculada, garantizando una interacción
-            </li>
-          </ul>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <h1 className="font-bold text-xl">Heurística</h1>
+        <div>
+          <h1 className="text-xl font-bold">
+            Pipeline de datos: de OpenStreetMap al grafo
+          </h1>
+
           <p className="font-thin">
-            Cálculo de distancia entre coordenadas usando Haversine
+            Los datos se obtienen desde Overpass Turbo API, que permite
+            consultar la base de datos de OpenStreetMap con queries
+            personalizadas. El resultado es un .json con nodos geográficos
+            (coordenadas lat/lon) y ways (segmentos de calle que conectan esos
+            nodos). Al cargar el archivo, se construye el grafo de adyacencia en
+            memoria:
           </p>
-          <CodeSnippet
-            language="javascript"
-            code={`export const haversineDistance = (a: MapNode, b: MapNode): number => {
-  const R = 6371000; // Radio de la tierra en metros
-  const toRad = (deg: number) => (deg * Math.PI) / 180;
-  const dLat = toRad(b.lat - a.lat);
-  const dLon = toRad(b.lon - a.lon);
-  const sinDLat = Math.sin(dLat / 2);
-  const sinDLon = Math.sin(dLon / 2);
-  const a2 =
-    sinDLat * sinDLat +
-    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * sinDLon * sinDLon;
-  return R * 2 * Math.atan2(Math.sqrt(a2), Math.sqrt(1 - a2));
-};
-              `}
-          />
         </div>
-      </div>
 
-      <div className="flex flex-col w-full md:px-10 mt-5">
-        <h1 className="font-bold text-xl">Parser</h1>
-        <p className="font-thin">Conversión de archivo .json</p>
         <CodeSnippet
           language="javascript"
           code={`export function parseOverpassJSONToGraph(jsonText: string) {
@@ -252,18 +201,108 @@ export const PathfindingMap = () => {
     }
   
     return { graph, nodes, bounds: computeBoundsFromNodes(nodes) };
-  }`}
+}`}
         />
 
-        <div className="flex">
-          <a
-            className="flex gap-2 items-center underline text-lg"
-            href="https://github.com/angelsr16/web-portfolio/tree/main/src/features/pathfinding-map"
-            target="_blank"
-          >
-            Ver código fuente
-            <FaGithub />
-          </a>
+        <div>
+          <h1 className="text-xl font-bold">Heurística</h1>
+
+          <p className="font-thin">
+            El peso de cada arista es la distancia real en metros entre dos
+            nodos, calculada con la fórmula de Haversine que considera la
+            curvatura de la Tierra.
+          </p>
+        </div>
+
+        <CodeSnippet
+          language="javascript"
+          code={`export const haversineDistance = (a: MapNode, b: MapNode): number => {
+  const R = 6371000; // Radio de la tierra en metros
+  const toRad = (deg: number) => (deg * Math.PI) / 180;
+  const dLat = toRad(b.lat - a.lat);
+  const dLon = toRad(b.lon - a.lon);
+  const sinDLat = Math.sin(dLat / 2);
+  const sinDLon = Math.sin(dLon / 2);
+  const a2 =
+    sinDLat * sinDLat +
+    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * sinDLon * sinDLon;
+  return R * 2 * Math.atan2(Math.sqrt(a2), Math.sqrt(1 - a2));
+};
+`}
+        />
+
+        <div>
+          <h1 className="text-xl font-bold">Integración con Leaflet</h1>
+
+          <p className="font-thin">
+            Una vez parseados los datos, el mapa de Leaflet se centra y ajusta
+            automáticamente a los bounds de todos los nodos cargados.
+          </p>
+
+          <p className="font-thin">
+            El usuario hace click directamente sobre el mapa para seleccionar el
+            nodo de inicio y el de destino. Al clickear, se busca el nodo más
+            cercano al punto clickeado usando distancia euclidiana sobre las
+            coordenadas.
+          </p>
+        </div>
+
+        <div>
+          <h1 className="text-xl font-bold">Búsqueda y animación</h1>
+
+          <p className="font-thin">
+            Al confirmar inicio y destino, el algoritmo recorre el grafo y cada
+            arista explorada se dibuja progresivamente sobre el mapa como una
+            polilínea de Leaflet, simulando la exploración en tiempo real. Al
+            terminar, la ruta óptima se resalta en un color distinto sobre los
+            caminos ya dibujados.
+          </p>
+        </div>
+
+        <div>
+          <h1 className="text-xl font-bold">
+            Por qué esto es diferente a una grilla
+          </h1>
+
+          <p className="font-thin">
+            En una grilla sintética todos los nodos son equidistantes y la
+            topología es uniforme. Trabajar con OSM introduce complejidad real:
+          </p>
+
+          <ul className="font-thin">
+            <li className="list-disc ml-10">
+              <strong>Grafos irregulares</strong>: cada nodo puede tener 1, 2, 3
+              o más conexiones dependiendo de la intersección
+            </li>
+            <li className="list-disc ml-10">
+              <strong>Pesos variables</strong>: una calle larga y una corta no
+              tienen el mismo costo
+            </li>
+            <li className="list-disc ml-10">
+              <strong>Datos sucios</strong>: nodos duplicados, ways incompletos
+              o discontinuidades en la red vial que hay que manejar
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h1 className="text-xl font-bold">Aprendizajes clave</h1>
+
+          <ul className="font-thin">
+            <li className="list-disc ml-10">
+              Consumir y parsear datos geográficos reales de una API pública
+              (Overpass Turbo) y transformarlos en una estructura de datos
+              utilizable.
+            </li>
+            <li className="list-disc ml-10">
+              La fórmula de Haversine como herramienta para calcular distancias
+              reales sobre coordenadas geográficas.
+            </li>
+            <li className="list-disc ml-10">
+              La fórmula de Haversine como herramienta para calcular distancias
+              reales sobre coordenadas geográficas.
+            </li>
+          </ul>
         </div>
       </div>
     </div>

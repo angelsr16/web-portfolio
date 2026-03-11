@@ -1,6 +1,8 @@
 import { useState } from "react";
 
+import { FaGithub } from "react-icons/fa";
 import { Modal } from "../../../components/Modal";
+import { ModalFooter } from "../../../components/ModalFooter";
 import { EightPuzzleSolverWrapper } from "../../../pages/projects/EightPuzzleSolver";
 import { PathfindingWrapper } from "../../../pages/projects/Pathfinding";
 import { PathfindingMapWrapper } from "../../../pages/projects/PathFindingMap";
@@ -25,6 +27,8 @@ const ProjectsList = () => {
       ],
       tags: ["HTML5 Canvas", "IA"],
       component: EightPuzzleSolverWrapper,
+      githubLink:
+        "https://github.com/angelsr16/web-portfolio/tree/main/src/features/eight-puzzle",
     },
     // {
     //   id: 2,
@@ -45,6 +49,8 @@ const ProjectsList = () => {
       ],
       tags: ["Leaflet Maps", "Overpass Turbo API", "IA"],
       component: PathfindingMapWrapper,
+      githubLink:
+        "https://github.com/angelsr16/web-portfolio/tree/main/src/features/pathfinding-map",
     },
     {
       id: 4,
@@ -57,6 +63,8 @@ const ProjectsList = () => {
       ],
       tags: ["HTML5 Canvas", "IA"],
       component: PathfindingWrapper,
+      githubLink:
+        "https://github.com/angelsr16/web-portfolio/tree/main/src/features/pathfinding",
     },
   ];
 
@@ -83,6 +91,18 @@ const ProjectsList = () => {
         title={`DETALLES DEL PROYECTO - ${currentProject?.title.toUpperCase()}`}
         closeOnOverlayClick={false}
         size="default"
+        footer={
+          <ModalFooter>
+            <a
+              className="custom-button flex gap-2 items-center px-5 cursor-pointer uppercase"
+              href={currentProject?.githubLink}
+              target="_blank"
+            >
+              Ver Código Fuente
+              <FaGithub size={18} />
+            </a>
+          </ModalFooter>
+        }
       >
         {Component && <Component key={currentProject.id} {...currentProject} />}
       </Modal>

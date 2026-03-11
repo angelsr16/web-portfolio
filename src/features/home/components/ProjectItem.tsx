@@ -54,7 +54,7 @@ const ProjectItem = ({
             </span>
 
             <a href="">
-              <FaGithub />
+              <FaGithub size={22} />
             </a>
           </div>
         </div>

@@ -4,7 +4,7 @@ export interface Project {
   description: string;
   techList: TechItem[];
   tags: string[];
-  githubLink?: string;
+  githubLink: string;
   linkDemo?: string;
   component: React.ElementType;
 }

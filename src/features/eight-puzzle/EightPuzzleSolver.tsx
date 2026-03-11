@@ -48,11 +48,10 @@ export const EightPuzzleSolver = () => {
             />
           )}
         </div>
-
-        <div className="border rounded-md border-brand-secondary px-5 py-2 overflow-y-auto max-h-150">
-          <h3 className="font-bold text-xl mb-2">Resultado de búsqueda</h3>
-          {path.length > 0 && (
+        {path.length > 0 && (
+          <div className="border rounded-md border-brand-secondary/40 px-5 py-2 overflow-y-auto max-h-150">
             <>
+              <h3 className="font-bold text-xl mb-2">Resultado de búsqueda</h3>
               <p className="font-thin mb-1">Movimientos: {path.length}</p>
               <div className="flex items-center flex-wrap gap-3">
                 {path.map((state, index) => (
@@ -72,8 +71,8 @@ export const EightPuzzleSolver = () => {
                 ))}
               </div>
             </>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <Separator className="my-5" />
@@ -158,7 +157,6 @@ export const EightPuzzleSolver = () => {
             />
           </div>
         </div>
-
         <div>
           <h1 className="text-xl font-bold">Visualización en Canvas</h1>
 
@@ -190,83 +188,6 @@ export const EightPuzzleSolver = () => {
           </ul>
         </div>
       </div>
-
-      {/* <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:px-10">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-bold">Descripción</h1>
-
-          <p className="font-thin">
-            Este proyecto es un solucionador interactivo para el clásico
-            rompecabezas deslizante de 3x3. El objetivo central fue implementar
-            un agente capaz de encontrar la secuencia óptima de movimientos para
-            alcanzar el estado objetivo desde cualquier configuración inicial
-            válida, visualizando el proceso en tiempo real.
-          </p>
-
-          <h2 className="font-semibold">Desafíos técnicos</h2>
-
-          <ul className="font-thin">
-            <li className="list-disc ml-5">
-              <strong>Gestión del Espacio de Estados</strong>: El 8-puzzle tiene
-              9!/2 = 181,440 estados alcanzables. Una búsqueda ciega (BFS/DFS)
-              resultaría ineficiente en términos de memoria y tiempo.
-            </li>
-            <li className="list-disc ml-5">
-              <strong>Heurística admisible</strong>: El reto consistió en
-              implementar una función que guíe al algoritmo sin sobreestimar el
-              costo, garantizando así la solución más corta.
-            </li>
-          </ul>
-
-          <h2 className="font-semibold">Solución y Arquitectura</h2>
-
-          <ul className="font-thin">
-            <li className="list-disc ml-5">
-              <strong>Algoritmo A*</strong>: Implementación del motor de
-              búsqueda utilizando una cola de prioridad basada en el costo total
-              f(n) = g(n) + h(n)
-            </li>
-            <li className="list-disc ml-5">
-              <strong>Distancia de Manhattan</strong>: Se utilizó esta
-              heurística para calcular la suma de las distancias verticales y
-              horizontales de las piezas fuera de su lugar, optimizando
-              drásticamente la exploración.
-            </li>
-          </ul>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <h1 className="font-bold text-xl">Heurística</h1>
-          <p className="font-thin">Cálculo de distancia Manhattan</p>
-          <CodeSnippet
-            language="javascript"
-            code={`export const heuristic = (board: number[]): number => {
-  let distance = 0;
-  for (let i = 0; i < 9; i++) {
-    if (board[i] !== 0) {
-      const x1 = Math.floor(i / 3);
-      const y1 = i % 3;
-      const x2 = Math.floor((board[i] - 1) / 3);
-      const y2 = (board[i] - 1) % 3;
-      distance += Math.abs(x1 - x2) + Math.abs(y1 - y2);
-    }
-  }
-  return distance;
-};`}
-          />
-
-          <div className="flex">
-            <a
-              className="flex gap-2 items-center underline text-lg"
-              href="https://github.com/angelsr16/web-portfolio/tree/main/src/features/eight-puzzle"
-              target="_blank"
-            >
-              Ver código fuente
-              <FaGithub />
-            </a>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };

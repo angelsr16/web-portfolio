@@ -94,6 +94,7 @@ body::before {
     px-1.25 py-3 cursor-default text-[11.5px];
   }
 
+  .custom-button,
   button:hover {
     background: rgba(56, 189, 248, 0.16);
     border-color: rgba(56, 189, 248, 0.4);
