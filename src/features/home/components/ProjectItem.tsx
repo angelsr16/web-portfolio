@@ -14,6 +14,7 @@ const ProjectItem = ({
   description,
   techList,
   tags,
+  githubLink,
   onClick,
 }: ProjectItemProps) => {
   return (
@@ -53,7 +54,7 @@ const ProjectItem = ({
               Más detalles...
             </span>
 
-            <a href="">
+            <a target="_blank" href={githubLink}>
               <FaGithub size={22} />
             </a>
           </div>

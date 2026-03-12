@@ -68,6 +68,17 @@ body::before {
     border-radius: 14px 14px 0 0;
   }
 
+  .future-project::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(90deg, var(--color-brand-primary));
+    border-radius: 14px 14px 0 0;
+  }
+
   input {
     @apply w-full outline-none text-[11.5px] font-medium tracking-[0.04em] text-[#7dd3fc] 
     bg-[rgba(56,189,248,0.08)] border border-[rgba(56,189,248,0.18)] rounded-md px-3 py-2
