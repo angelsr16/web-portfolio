@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
 import { Modal } from "../../../components/Modal";
 import { ModalFooter } from "../../../components/ModalFooter";
@@ -108,14 +109,29 @@ const ProjectsList = () => {
   return (
     <>
       <div className="grid md:grid-cols-2 grid-cols-1 gap-6 my-10">
-        {projectsList.map((project) => (
-          <ProjectItem
-            onClick={() => handleDisplayModal(project)}
-            key={project.id}
-            {...project}
-          />
+        {projectsList.map((project, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.2 * index }}
+          >
+            <ProjectItem
+              onClick={() => handleDisplayModal(project)}
+              key={project.id}
+              {...project}
+            />
+          </motion.div>
         ))}
-        <FutureProjects />
+
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.3, delay: 0.2 * projectsList.length }}
+        >
+          <FutureProjects />
+        </motion.div>
       </div>
 
       <Modal
