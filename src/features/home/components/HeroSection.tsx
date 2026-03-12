@@ -32,6 +32,7 @@ export const HeroSection = () => {
             target="_blank"
             href="https://www.linkedin.com/in/angelsr16/"
           >
+            LinkedIn
             <FaLinkedin className="md:text-2xl text-lg text-white" />
           </HeroLink>
         </motion.div>
@@ -42,6 +43,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.7, delay: 0.5 }}
         >
           <HeroLink target="_blank" href="https://github.com/angelsr16">
+            Github
             <FaGithub className="md:text-2xl text-lg text-white" />
           </HeroLink>
         </motion.div>
@@ -51,8 +53,8 @@ export const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
         >
-          <HeroLink href="assets/cv.pdf" download="CV - Angel Sanchez.pdf">
-            <span className="font-bold text-white">CV</span>
+          <HeroLink href="cv.pdf" download="CV - Angel Sanchez.pdf">
+            Descargar CV
             <FaFileArrowDown className="size-5 group-hover:translate-y-1/5 transition text-white" />
           </HeroLink>
         </motion.div>
