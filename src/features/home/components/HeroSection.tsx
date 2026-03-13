@@ -22,7 +22,7 @@ export const HeroSection = () => {
         </p>
       </motion.div>
 
-      <div className="flex justify-center gap-3 mb-10">
+      <div className="flex flex-wrap justify-center gap-3 mb-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

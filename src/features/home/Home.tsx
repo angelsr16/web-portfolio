@@ -6,8 +6,8 @@ import "./Home.css";
 function Home() {
   return (
     <>
-      <div className="flex justify-center">
-        <div className="2xl:w-[65%] w-[90%] my-10">
+      <div className="w-full flex justify-center px-4 my-10">
+        <div className="w-full max-w-7xl">
           <HeroSection />
           <ProjectsSection />
           <AboutSection />

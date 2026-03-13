@@ -32,7 +32,7 @@ export default function AboutSection() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5 }}
             className="section-label"
           >
@@ -42,7 +42,7 @@ export default function AboutSection() {
           <motion.h1
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="heading"
           >
@@ -54,7 +54,7 @@ export default function AboutSection() {
           <motion.p
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="font-thin leading-relaxed text-brand-textMuted"
           >
@@ -68,7 +68,7 @@ export default function AboutSection() {
           <motion.p
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="font-thin leading-relaxed text-brand-textMuted"
           >
@@ -81,7 +81,7 @@ export default function AboutSection() {
           <motion.p
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: 0.6 }}
             className="bio-extra text-sm text-brand-textMuted"
           >
@@ -97,7 +97,7 @@ export default function AboutSection() {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.5 }}
+              viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.5 }}
               className="section-label"
             >
@@ -107,7 +107,7 @@ export default function AboutSection() {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.5 }}
+              viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <Card>
@@ -122,7 +122,7 @@ export default function AboutSection() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <div className="projects-label">Proyectos destacados</div>
@@ -144,7 +144,7 @@ export default function AboutSection() {
               <motion.span
                 initial={{ opacity: 0, y: -50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.5 }}
+                viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.6, delay: 0.05 * index }}
                 key={skill}
                 className="pill"

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
 import { Modal } from "../../../components/Modal";
 import { ModalFooter } from "../../../components/ModalFooter";
+import ProjectShowcaseCard from "../../../components/ProjectShowcaseCard";
 import { EightPuzzleSolverWrapper } from "../../../pages/projects/EightPuzzleSolver";
 import { PathfindingWrapper } from "../../../pages/projects/Pathfinding";
 import { PathfindingMapWrapper } from "../../../pages/projects/PathFindingMap";
@@ -18,6 +19,58 @@ const ProjectsList = () => {
   const [currentProject, setCurrentProject] = useState<Project>();
 
   const Component = currentProject?.component;
+
+  const showcaseProjects = [
+    {
+      title: "Construpacc",
+      description:
+        "Sitio web informativo para Construpacc, donde los visitantes pueden conocer la empresa, explorar sus servicios y adquirir productos de construcción directamente desde un catálogo con carrito de compras integrado y contacto directo vía WhatsApp.",
+      image: "images/construpacc/_01.png",
+      tags: [
+        { image: "angular", title: "Angular" },
+        { image: "firebase", title: "Firebase" },
+        { image: "tailwindcss", title: "TailwindCSS" },
+      ],
+      action: {
+        label: "Visitar sitio web",
+        icon: "↗",
+        href: "https://construpacc.com",
+      },
+      slug: "colaboración-en-medic...",
+    },
+    {
+      title: "Soinsa",
+      description:
+        "Sitio web informativo para SOINSA que presenta la empresa y sus servicios, complementado con un portal privado de gestión documental donde la empresa puede cargar, organizar y administrar documentos por cliente, mientras que cada cliente cuenta con su propio acceso para consultar y gestionar la documentación que la empresa les comparte de forma segura.",
+      image: "images/soinsa/_01.png",
+      tags: [
+        { image: "angular", title: "Angular" },
+        { image: "firebase", title: "Firebase" },
+        { image: "tailwindcss", title: "TailwindCSS" },
+      ],
+      action: {
+        label: "Visitar sitio web",
+        icon: "↗",
+        href: "https://www.soinsa.com.mx",
+      },
+      private: false,
+      slug: "fortisiip",
+    },
+    {
+      title: "Plataforma Integral de Gestión de Obras Públicas",
+      description:
+        "Sistema de gestión para gobiernos municipales que centraliza el control de obras públicas, permitiendo registrar y dar seguimiento a proyectos, administrar contratos y nóminas, generar documentación oficial en PDF de forma automática y producir reportes estadísticos; todo complementado con un portal ciudadano para consultar en tiempo real y de forma geográfica el avance de las obras.",
+      image: "images/obras/_01.png",
+      tags: [
+        { image: "angular", title: "Angular" },
+        { image: "firebase", title: "Firebase" },
+        { image: "tailwindcss", title: "TailwindCSS" },
+      ],
+      private: true,
+      action: null,
+      slug: "casisat",
+    },
+  ];
 
   const projectsList: Project[] = [
     {
@@ -108,17 +161,36 @@ const ProjectsList = () => {
 
   return (
     <>
+      <div
+        className="
+        grid gap-6
+        grid-cols-1
+        sm:grid-cols-2
+        lg:grid-cols-3
+        max-w-7xl mx-auto
+        place-items-center
+      "
+      >
+        {showcaseProjects.map((p) => (
+          <ProjectShowcaseCard key={p.slug} {...p} />
+        ))}
+      </div>
+
       <div className="grid md:grid-cols-2 grid-cols-1 gap-6 my-10">
         {projectsList.map((project, index) => (
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            key={project.id}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.3, delay: 0.2 * index }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.12 * index,
+              ease: [0.21, 0.47, 0.32, 0.98],
+            }}
           >
             <ProjectItem
               onClick={() => handleDisplayModal(project)}
-              key={project.id}
               {...project}
             />
           </motion.div>
@@ -127,7 +199,7 @@ const ProjectsList = () => {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.3, delay: 0.2 * projectsList.length }}
         >
           <FutureProjects />

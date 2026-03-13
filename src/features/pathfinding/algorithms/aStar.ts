@@ -52,6 +52,8 @@ export const aStar = async (
 
   while (openList.length() > 0) {
     const [f, h, row, col] = openList.pop();
+    console.log(f);
+    console.log(h);
 
     const index = getGridIndexFromRowAndCol(row, col, gridSize);
     onUpdateCell(index, VISITED_CELL);

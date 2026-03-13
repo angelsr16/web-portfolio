@@ -15,7 +15,7 @@ export const ProjectsSection = () => {
 
   return (
     <section className="md:mb-20 mb-10 text-brand-text">
-      <div className="section-label mb-5">Proyectos Personales</div>
+      <div className="section-label mb-5">Mis Proyectos</div>
 
       {/* <div className="flex whitespace-nowrap gap-5 flex-wrap">
         {filters.map((filter, index) => (
