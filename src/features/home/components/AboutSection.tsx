@@ -127,8 +127,8 @@ export default function AboutSection() {
           >
             <div className="projects-label">Proyectos destacados</div>
             <div className="projects-list">
-              {projects.map((p) => (
-                <div className="project-item">
+              {projects.map((p, index) => (
+                <div key={index} className="project-item">
                   <span className="project-icon">{p.icon}</span>
                   <div className="project-info">
                     <span className="project-name">{p.name}</span>

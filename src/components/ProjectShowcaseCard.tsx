@@ -24,32 +24,27 @@ export default function ProjectShowcaseCard({
         <span className="w-3 h-3 rounded-full bg-[#28c840]" />
       </div>
 
-      {/* Preview image */}
       <div className="w-full m-4 rounded-xl aspect-video overflow-hidden gradient-variant-1">
         <img
           src={image}
           alt={title}
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-center transition-transform duration-350 ease-in-out hover:scale-105"
         />
       </div>
 
-      {/* Content */}
       <div className="flex flex-col flex-1 p-5 gap-3">
         <h3 className="text-white font-bold text-xl">{title}</h3>
 
         <p className="font-thin">{description} </p>
 
-        {/* Tags */}
         <div className="flex flex-wrap gap-2 mt-1">
           {tags.map((tag, index) => (
             <TagTechItem key={index} image={tag.image} title={tag.title} />
           ))}
         </div>
 
-        {/* Spacer */}
         <div className="flex-1" />
 
-        {/* Footer */}
         {isPrivate ? (
           <p className="text-white/30 text-xs italic font-mono text-center py-2">
             // Proyecto interno de empresa – Código y proyecto no disponibles
