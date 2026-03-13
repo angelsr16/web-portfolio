@@ -161,7 +161,11 @@ const ProjectsList = () => {
 
   return (
     <>
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.5 }}
         className="
         grid gap-6
         grid-cols-1
@@ -174,7 +178,7 @@ const ProjectsList = () => {
         {showcaseProjects.map((p) => (
           <ProjectShowcaseCard key={p.slug} {...p} />
         ))}
-      </div>
+      </motion.div>
 
       <div className="grid md:grid-cols-2 grid-cols-1 gap-6 my-10">
         {projectsList.map((project, index) => (
