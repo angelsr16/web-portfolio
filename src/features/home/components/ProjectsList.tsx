@@ -7,11 +7,10 @@ import { ModalFooter } from "../../../components/ModalFooter";
 import ProjectShowcaseCard from "../../../components/ProjectShowcaseCard";
 import { EightPuzzleSolverWrapper } from "../../../pages/projects/EightPuzzleSolver";
 import { PathfindingWrapper } from "../../../pages/projects/Pathfinding";
-import { PathfindingMapWrapper } from "../../../pages/projects/PathFindingMap";
+// import { PathfindingMapWrapper } from "../../../pages/projects/PathFindingMap";
 import type { Project } from "../../../types/project.types";
 import { Suscripciones } from "../../control-suscripciones/Suscripciones";
 import { Loteria } from "../../loteria-mexicana/Loteria";
-import FutureProjects from "./FutureProjects";
 import ProjectItem from "./ProjectItem";
 
 const ProjectsList = () => {
@@ -22,19 +21,20 @@ const ProjectsList = () => {
 
   const showcaseProjects = [
     {
-      title: "Construpacc",
+      title: "Sanchez Garcia RH Consultores",
       description:
-        "Sitio web informativo para Construpacc, donde los visitantes pueden conocer la empresa, explorar sus servicios y adquirir productos de construcción directamente desde un catálogo con carrito de compras integrado y contacto directo vía WhatsApp.",
-      image: "images/construpacc/_01.png",
+        "Sitio web informativo para Sanchez Garcia RH Consultores, donde los visitantes pueden conocer la firma, explorar sus servicios de pensiones, protección financiera y asesorías fiscales, y contactar directamente al equipo mediante un formulario de contacto, enlaces a redes sociales y acceso directo vía WhatsApp.",
+      image: "images/sanchezrh/_01.png",
       tags: [
-        { image: "angular", title: "Angular" },
-        { image: "firebase", title: "Firebase" },
+        { image: "react", title: "React" },
+        { image: "vite", title: "Vite" },
+        { image: "firebase", title: "Firebase Hosting" },
         { image: "tailwindcss", title: "TailwindCSS" },
       ],
       action: {
         label: "Visitar sitio web",
         icon: "↗",
-        href: "https://construpacc.com",
+        href: "https://sanchezgarciarhconsultores.com",
       },
       slug: "colaboración-en-medic...",
     },
@@ -92,20 +92,20 @@ const ProjectsList = () => {
       component: Suscripciones,
       githubLink: "https://github.com/angelsr16/subscription-tracker",
     },
-    {
-      id: 2,
-      title: "A* Pathfinding Real Data Map",
-      description:
-        "Motor de navegación que implementa el algoritmo A* sobre grafos de coordenadas reales. El sistema procesa archivos OpenStreetMap para reconstruir redes viales y calcular rutas óptimas entre puntos geográficos.",
-      techList: [
-        { techImage: "typescript", techTitle: "Typescript" },
-        { techImage: "react", techTitle: "React" },
-      ],
-      tags: ["Leaflet Maps", "Overpass Turbo API", "IA"],
-      component: PathfindingMapWrapper,
-      githubLink:
-        "https://github.com/angelsr16/web-portfolio/tree/main/src/features/pathfinding-map",
-    },
+    // {
+    //   id: 2,
+    //   title: "A* Pathfinding Real Data Map",
+    //   description:
+    //     "Motor de navegación que implementa el algoritmo A* sobre grafos de coordenadas reales. El sistema procesa archivos OpenStreetMap para reconstruir redes viales y calcular rutas óptimas entre puntos geográficos.",
+    //   techList: [
+    //     { techImage: "typescript", techTitle: "Typescript" },
+    //     { techImage: "react", techTitle: "React" },
+    //   ],
+    //   tags: ["Leaflet Maps", "Overpass Turbo API", "IA"],
+    //   component: PathfindingMapWrapper,
+    //   githubLink:
+    //     "https://github.com/angelsr16/web-portfolio/tree/main/src/features/pathfinding-map",
+    // },
     {
       id: 3,
       title: "Lotería Mexicana",
@@ -199,14 +199,14 @@ const ProjectsList = () => {
           </motion.div>
         ))}
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.3, delay: 0.2 * projectsList.length }}
         >
           <FutureProjects />
-        </motion.div>
+        </motion.div> */}
       </div>
 
       <Modal
